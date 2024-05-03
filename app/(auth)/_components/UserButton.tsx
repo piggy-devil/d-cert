@@ -41,16 +41,18 @@ export const UserButton = ({ user, className }: UserButtonProps) => {
           <DropdownMenuSeparator />
           <DropdownMenuGroup className="ml-2 my-2">
             <DropdownMenuItem asChild>
-              <Link href="/client">
+              <Link href="/client" className="cursor-pointer w-full">
                 <Settings className="mr-4" />
-                <span className="cursor-pointer">การตั้งค่า</span>
+                <span>การตั้งค่า</span>
               </Link>
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="ml-2 mt-4 mb-2">
-            <LogOut className="mr-4" />
-            <SignoutButton>ออกจากระบบ</SignoutButton>
+            <SignoutButton>
+              <LogOut className="mr-4" />
+              ออกจากระบบ
+            </SignoutButton>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

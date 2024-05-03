@@ -17,7 +17,7 @@ export const SignoutButton = ({
   return (
     <span
       onClick={() => signOut({ callbackUrl: callbackUrl ? callbackUrl : "/" })}
-      className={cn("cursor-pointer", classname)}
+      className={cn("flex cursor-pointer w-full", classname)}
     >
       {children}
     </span>
