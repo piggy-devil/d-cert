@@ -18,7 +18,7 @@ const SigninButton = () => {
       {user && session.status == "authenticated" && (
         <>
           <Button size="sm" asChild variant="ghost">
-            <Link href="/dashboard">dashboard</Link>
+            <Link href="/courses">Course</Link>
           </Button>
           <UserButton user={user} className="mr-4" />
         </>

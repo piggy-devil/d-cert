@@ -1,18 +1,14 @@
 import Link from "next/link";
-import getSession from "@/lib/getSession";
 import { Button } from "@/components/ui/button";
 import { Medal } from "lucide-react";
-// import { redirect } from "next/navigation";
+import getSession from "@/lib/getSession";
 
-const LandingPage = async () => {
+export const Header = async () => {
   const session = await getSession();
   const user = session?.user;
 
-  // if (!user) {
-  //   redirect("/api/auth/signin?callbackUrl=/");
-  // }
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center py-40 px-100">
       <div className="flex items-center justify-center flex-col">
         <div className="mb-4 flex items-center border shadow-sm p-4 bg-amber-100 text-amber-700 rounded-full uppercase">
           <Medal className="h-6 w-6 mr-2" />
@@ -37,5 +33,3 @@ const LandingPage = async () => {
     </div>
   );
 };
-
-export default LandingPage;

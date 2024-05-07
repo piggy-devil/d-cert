@@ -1,13 +1,15 @@
+import { getAllCourse } from "@/actions/course";
 import { EmptyCourse } from "../_components/EmptyCourse";
-import { NewButton } from "../_components/New";
+import { CourseList } from "../_components/CourseList";
 
-const CouresPage = () => {
+const CouresPage = async () => {
+  const courses = await getAllCourse();
+
   return (
-    <div className="ml-20">
-      <span>Workspaces</span>
-      <div className="w-60 mt-10">
-        {/* <NewButton /> */}
-        <EmptyCourse />
+    <div className="bg-white rounded-s-lg pb-24 pt-12 px-12 flex-row items-center justify-center">
+      <div className="">Workspaces</div>
+      <div className="mt-10">
+        {courses ? <CourseList courses={courses} /> : <EmptyCourse />}
       </div>
     </div>
   );

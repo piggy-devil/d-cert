@@ -48,3 +48,65 @@ export const createCourse = async (values: z.infer<typeof CourseSchema>) => {
     return { error: "Course Fail!." };
   }
 };
+
+export const getAllCourse = async () => {
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect("/api/auth/signin?callbackUrl=/courses");
+  }
+
+  // console.log("getCourese: ", user);
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${user?.token}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to get all course.");
+    }
+
+    return res.json();
+  } catch {
+    throw new Error("Something went wrong!.");
+  }
+};
+
+export const getCourse = async (id: string) => {
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect("/api/auth/signin?callbackUrl=/courses");
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user?.token}`,
+        },
+      }
+    );
+
+    // console.log("res: ", res);
+
+    if (!res.ok) {
+      throw new Error("Failed to get course.");
+    }
+
+    return await res.json();
+  } catch (error) {
+    return error;
+  }
+};
