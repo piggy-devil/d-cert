@@ -14,8 +14,8 @@ type AuthWrapperProps = {
   children: React.ReactNode;
   title: string;
   description?: string;
-  backButtonLabel: string;
-  backButtonHref: string;
+  backButtonLabel?: string;
+  backButtonHref?: string;
 };
 
 export const AuthWrapper = ({

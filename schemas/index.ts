@@ -53,3 +53,9 @@ export const RegisterFormSchema = RegisterSchema.extend({
   message: "Passwords do not match",
   path: ["confirmPassword"],
 });
+
+export const CourseSchema = object({
+  course: string().min(1, {
+    message: "Course name is required",
+  }),
+});

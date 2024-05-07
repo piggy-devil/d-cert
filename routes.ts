@@ -1,7 +1,7 @@
 /**
  * The default redirect path after logging in
  */
-export const DEFAULT_REDIRECT_ON_LOGIN: string = "/client";
+export const DEFAULT_REDIRECT_ON_LOGIN: string = "/courses";
 
 /**
  * An array of routes that are accessible to the public

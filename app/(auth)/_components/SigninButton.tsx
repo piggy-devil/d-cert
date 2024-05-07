@@ -14,7 +14,7 @@ const SigninButton = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex ml-auto">
+    <div className="flex ml-auto gap-2">
       {user && session.status == "authenticated" && (
         <>
           <Button size="sm" asChild variant="ghost">

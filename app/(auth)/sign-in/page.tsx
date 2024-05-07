@@ -8,7 +8,11 @@ const SignInPage = ({ searchParams }: SignInPageProps) => {
   return (
     <LoginForm
       error={searchParams?.error}
-      callbackUrl={searchParams?.callbackUrl}
+      callbackUrl={
+        searchParams?.callbackUrl !== process.env.NEXT_PUBLIC_URL
+          ? searchParams?.callbackUrl
+          : ""
+      }
     />
   );
 };

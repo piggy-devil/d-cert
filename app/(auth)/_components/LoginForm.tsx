@@ -26,6 +26,7 @@ import { FormError } from "@/components/FormError";
 import { FormSuccess } from "@/components/FormSuccess";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import { DEFAULT_REDIRECT_ON_LOGIN } from "@/routes";
 
 type LoginFormProps = {
   className?: string;
@@ -68,11 +69,13 @@ export const LoginForm = (props: LoginFormProps) => {
         toast({
           description: `${res.success}`,
         });
-        router.push(props.callbackUrl ? props.callbackUrl : "/");
+        router.push(
+          props.callbackUrl ? props.callbackUrl : DEFAULT_REDIRECT_ON_LOGIN
+        );
       }
 
-      console.log("res: ", res);
-      console.log("callback: ", props.callbackUrl);
+      // console.log("res: ", res);
+      // console.log("callback: ", props.callbackUrl);
 
       if (res.error) {
         setError(res.error);

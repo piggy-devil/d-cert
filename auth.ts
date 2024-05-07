@@ -2,6 +2,7 @@ import type { NextAuthConfig } from "next-auth";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { getUserByEmail, getUserByToken } from "./actions/user";
+import { redirect } from "next/navigation";
 
 const credentialsConfig = Credentials({
   name: "credentials",
@@ -61,6 +62,20 @@ const config = {
   callbacks: {
     authorized({ request, auth }) {
       const { pathname } = request.nextUrl;
+
+      // เวลาที่กำหนด
+      const targetTime = new Date(auth?.expires as string).getTime();
+
+      // เวลาปัจจุบัน
+      const currentTime = new Date().getTime();
+
+      // ตรวจสอบว่าเวลาที่กำหนดมากกว่าหรือน้อยกว่าเวลาปัจจุบัน
+      if (targetTime > currentTime) {
+        console.log("เวลาที่กำหนดมากกว่าเวลาปัจจุบัน");
+      } else if (targetTime < currentTime) {
+        console.log("เวลาที่กำหนดน้อยกว่าเวลาปัจจุบัน");
+      }
+
       if (pathname === "/middle") return !!auth;
       return true;
     },
@@ -80,12 +95,19 @@ const config = {
           token.email as string
         );
 
+        console.log("existingUser: ", !!existingUser);
+
+        if (existingUser.message == "Forbidden") {
+          redirect("/api/auth/signin?callbackUrl=/");
+        }
+
         // console.log("existingUser: ", existingUser);
         session.user.id = existingUser._id;
         session.user.name = existingUser.name;
         session.user.email = existingUser.email;
         session.user.role = existingUser.role;
         session.user.token = token.name as string;
+        session.user.image = "";
       }
 
       return session;
