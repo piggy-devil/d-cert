@@ -9,7 +9,7 @@ export const NewButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="aspect-square">
+        <div className="w-full h-full">
           <Hint label="Create Cert" side="right" align="start" sideOffset={18}>
             <button className="bg-slate-200 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100 transition">
               <Plus className="text-white" />

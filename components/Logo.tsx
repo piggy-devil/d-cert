@@ -1,9 +1,13 @@
 import { Boxes } from "lucide-react";
 import Link from "next/link";
 
-export const Logo = () => {
+type LogoProps = {
+  href?: string;
+};
+
+export const Logo = ({ href }: LogoProps) => {
   return (
-    <Link href="/">
+    <Link href={href ? href : "/"}>
       <div className="hover:opacity-75 transition items-center gap-x-2 hidden md:flex">
         <p className="text-lg text-neutral-700 pb-1 flex flex-row ml-2">
           Cert

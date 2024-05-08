@@ -63,17 +63,17 @@ const config = {
     authorized({ request, auth }) {
       const { pathname } = request.nextUrl;
 
-      // เวลาที่กำหนด
+      // เวลาที่หมดอายุ
       const targetTime = new Date(auth?.expires as string).getTime();
 
       // เวลาปัจจุบัน
       const currentTime = new Date().getTime();
 
-      // ตรวจสอบว่าเวลาที่กำหนดมากกว่าหรือน้อยกว่าเวลาปัจจุบัน
+      // ตรวจสอบว่าเวลาที่หมดอายุมากกว่าหรือน้อยกว่าเวลาปัจจุบัน
       if (targetTime > currentTime) {
-        console.log("เวลาที่กำหนดมากกว่าเวลาปัจจุบัน");
+        console.log("เวลาที่หมดอายุมากกว่าเวลาปัจจุบัน");
       } else if (targetTime < currentTime) {
-        console.log("เวลาที่กำหนดน้อยกว่าเวลาปัจจุบัน");
+        console.log("เวลาที่หมดอายุน้อยกว่าเวลาปัจจุบัน");
       }
 
       if (pathname === "/middle") return !!auth;
@@ -106,6 +106,10 @@ const config = {
         session.user.name = existingUser.name;
         session.user.email = existingUser.email;
         session.user.role = existingUser.role;
+
+        if (!!existingUser.instituteId) {
+          session.user.instituteId = existingUser.instituteId;
+        }
         session.user.token = token.name as string;
         session.user.image = "";
       }
