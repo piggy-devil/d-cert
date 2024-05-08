@@ -79,6 +79,35 @@ export const getAllCourse = async () => {
   }
 };
 
+export const getMeCourse = async () => {
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect("/api/auth/signin?callbackUrl=/courses");
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/me`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${user?.token}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to get all course.");
+    }
+
+    return res.json();
+  } catch {
+    throw new Error("Something went wrong!.");
+  }
+};
+
 export const getCourse = async (id: string) => {
   const session = await getSession();
   const user = session?.user;
