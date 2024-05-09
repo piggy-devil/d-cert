@@ -12,7 +12,9 @@ const CourseLayout = ({ children }: CourseLayoutProps) => {
         <div className="w-64 px-4 shrink-0 hidden md:block">
           <Sidebar />
         </div>
-        <div className="w-full h-full">{children}</div>
+        <div className="bg-white rounded-s-lg pb-96 pt-12 px-12 flex-row items-center justify-center w-full h-full">
+          {children}
+        </div>
       </div>
     </main>
   );
