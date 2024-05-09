@@ -1,6 +1,6 @@
 "use client";
 
-import { createCourse } from "@/actions/course";
+import { updateCourse } from "@/actions/course";
 import { AuthWrapper } from "@/app/(auth)/_components/AuthWrapper";
 import { FormError } from "@/components/FormError";
 import { FormSuccess } from "@/components/FormSuccess";
@@ -24,7 +24,17 @@ import { z } from "zod";
 
 type CourseSchemaType = z.infer<typeof CourseSchema>;
 
-export const CreateCourseForm = () => {
+type EditCourseFormTypes = {
+  course: CourseSchemaType;
+  id: string;
+  onClose: () => void;
+};
+
+export const EditCourseForm = ({
+  course,
+  id,
+  onClose,
+}: EditCourseFormTypes) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -33,7 +43,7 @@ export const CreateCourseForm = () => {
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(CourseSchema),
     defaultValues: {
-      course: "",
+      course: course.course,
     },
   });
 
@@ -41,24 +51,29 @@ export const CreateCourseForm = () => {
     setError("");
 
     startTransition(async () => {
-      const res = await createCourse(values);
+      try {
+        const res = await updateCourse(values, id);
 
-      if (res.success) {
-        setSuccess(res.success);
+        if (res.success) {
+          setSuccess(res.success);
+          toast({
+            description: `${res.success}`,
+          });
+        }
+      } catch (error) {
         toast({
-          description: `${res.success}`,
+          description: "Something went wrong",
+          variant: "destructive",
         });
-        router.push(`/courses/${res.id}`);
-      }
-
-      if (res.error) {
-        setError(res.error);
+      } finally {
+        router.refresh();
+        onClose();
       }
     });
   };
 
   return (
-    <AuthWrapper title="Create Course" description="Blockchain Technology">
+    <AuthWrapper title="Edit Course" description="Blockchain Technology">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -85,9 +100,12 @@ export const CreateCourseForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            Create Course
+            Edit Course
           </Button>
         </form>
+        <Button variant="ghost" onClick={onClose} className="w-full mt-2">
+          Cancel
+        </Button>
       </Form>
     </AuthWrapper>
   );

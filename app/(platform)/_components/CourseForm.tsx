@@ -24,7 +24,11 @@ import { z } from "zod";
 
 type CourseSchemaType = z.infer<typeof CourseSchema>;
 
-export const CreateCourseForm = () => {
+type CourseFormTypes = {
+  course: CourseSchemaType;
+};
+
+export const CourseForm = ({ course }: CourseFormTypes) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -76,6 +80,7 @@ export const CreateCourseForm = () => {
                     disabled={isPending}
                     placeholder="course name"
                     type="text"
+                    value={course.course}
                   />
                 </FormControl>
                 <FormMessage />

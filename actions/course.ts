@@ -6,6 +6,79 @@ import { CourseSchema } from "@/schemas";
 import getSession from "@/lib/getSession";
 import { redirect } from "next/navigation";
 
+export const deleteCourse = async (id: string) => {
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect("/api/auth/signin?callbackUrl=/courses");
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${user?.token}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to delete course.");
+    }
+
+    return { success: "Course Delete Successfully!." };
+  } catch {
+    throw new Error("Something went wrong!.");
+  }
+};
+
+export const updateCourse = async (
+  values: z.infer<typeof CourseSchema>,
+  id: string
+) => {
+  const validatedFields = CourseSchema.safeParse(values);
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect("/api/auth/signin?callbackUrl=/courses");
+  }
+
+  if (!validatedFields.success) {
+    return { error: "Invalid fields!" };
+  }
+
+  const { course } = validatedFields.data;
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify({
+          course: course,
+        }),
+      }
+    );
+
+    if (!res.ok) {
+      return { error: res.statusText };
+    }
+
+    return { success: "Edit Course." };
+  } catch (error) {
+    console.log(error);
+    return { error: "Edit Fail." };
+  }
+};
+
 export const createCourse = async (values: z.infer<typeof CourseSchema>) => {
   const validatedFields = CourseSchema.safeParse(values);
   const session = await getSession();
