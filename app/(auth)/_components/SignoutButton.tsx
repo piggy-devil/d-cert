@@ -5,18 +5,20 @@ import { signOut } from "next-auth/react";
 
 interface LogoutButtonProps {
   children?: React.ReactNode;
-  callbackUrl?: string;
+  afterSignOutUrl?: string;
   classname?: string;
 }
 
 export const SignoutButton = ({
   children,
-  callbackUrl,
+  afterSignOutUrl,
   classname,
 }: LogoutButtonProps) => {
   return (
     <span
-      onClick={() => signOut({ callbackUrl: callbackUrl ? callbackUrl : "/" })}
+      onClick={() =>
+        signOut({ callbackUrl: afterSignOutUrl ? afterSignOutUrl : "/sign-in" })
+      }
       className={cn("flex cursor-pointer w-full", classname)}
     >
       {children}

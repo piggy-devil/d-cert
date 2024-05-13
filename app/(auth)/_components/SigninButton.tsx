@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { signIn, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { UserButton } from "./UserButton";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -15,12 +14,18 @@ const SigninButton = () => {
 
   return (
     <div className="flex ml-auto gap-2">
-      {user && session.status == "authenticated" && (
+      <Button variant="ghost" onClick={() => signIn()}>
+        Sign In
+      </Button>
+      <Button>
+        <Link href="/sign-up">Get started</Link>
+        <ArrowRight className="ml-2" size={14} />
+      </Button>
+      {/* {user && session.status == "authenticated" && (
         <>
           <Button size="sm" asChild variant="ghost">
             <Link href="/courses">Course</Link>
           </Button>
-          <UserButton user={user} className="mr-4" />
         </>
       )}
       {!user && session.status !== "loading" && pathname !== "/sign-in" && (
@@ -33,7 +38,7 @@ const SigninButton = () => {
             <ArrowRight className="ml-2" size={14} />
           </Button>
         </>
-      )}
+      )} */}
     </div>
   );
 };

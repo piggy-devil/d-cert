@@ -1,14 +1,14 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+"use client";
+
 import { Medal } from "lucide-react";
-import getSession from "@/lib/getSession";
+import { Button } from "./ui/button";
+import Link from "next/link";
+import { useUser } from "@/hooks/use-user";
 
-export const Header = async () => {
-  const session = await getSession();
-  const user = session?.user;
-
+export const Welcome = () => {
+  const { isLoaded } = useUser();
   return (
-    <div className="flex flex-col items-center justify-center py-40 px-100">
+    <div className="flex flex-col items-center justify-center px-100 pt-24">
       <div className="flex items-center justify-center flex-col">
         <div className="mb-4 flex items-center border shadow-sm p-4 bg-amber-100 text-amber-700 rounded-full uppercase">
           <Medal className="h-6 w-6 mr-2" />
@@ -25,7 +25,7 @@ export const Header = async () => {
         Create digital credentials in minutes with our easy-to-use certificate
         base on Blockchain Technology.
       </div>
-      {!user && (
+      {!isLoaded && (
         <Button className="mt-6 px-6" size="sm" asChild>
           <Link href="/sign-up">Start for free</Link>
         </Button>
