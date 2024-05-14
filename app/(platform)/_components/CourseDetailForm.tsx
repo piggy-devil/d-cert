@@ -24,7 +24,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { toast } from "@/components/ui/use-toast";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { CourseDetailSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
 import { FormError } from "@/components/FormError";
@@ -74,17 +74,25 @@ export const CourseDetailForm = ({
     },
   });
 
+  const { watch, reset } = form;
+
+  const watchedValues = watch();
+  let isFormChanged =
+    JSON.stringify(watchedValues) !==
+    JSON.stringify(form.control._defaultValues);
+
+  useEffect(() => {
+    const subscription = watch(() => {
+      setError("");
+      setSuccess("");
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   function onSubmit(values: z.infer<typeof CourseDetailSchema>) {
     setError("");
 
     startTransition(async () => {
-      // const formattedData = {
-      //   ...values,
-      //   dateOfStudyStart: values.dateOfStudyStart.toISOString(),
-      //   dateOfStudyEnd: values.dateOfStudyEnd.toISOString(),
-      //   dateOfExpireCert: values.dateOfExpireCert?.toISOString(),
-      // };
-      // console.log("data: ", formattedData);
       const res = await updateCourse(values, courseId);
       if (res.success) {
         setSuccess(res.success);
@@ -93,6 +101,7 @@ export const CourseDetailForm = ({
         });
         // router.push(`/courses/${res.id}`);
         router.refresh();
+        reset(values);
       }
       if (res.error) {
         setError(res.error);
@@ -263,7 +272,11 @@ export const CourseDetailForm = ({
           <FormError message={error} />
           <FormSuccess message={success} />
 
-          <Button type="submit" disabled={isPending} className="w-full">
+          <Button
+            type="submit"
+            disabled={isPending || !isFormChanged}
+            className="w-full"
+          >
             Create Course
           </Button>
         </form>
