@@ -1,4 +1,4 @@
-import { object, string } from "zod";
+import { date, object, string } from "zod";
 
 export type User = {
   id: string;
@@ -58,4 +58,37 @@ export const CourseSchema = object({
   course: string().min(1, {
     message: "Course name is required",
   }),
+});
+
+const base64Validator = (value: string) => {
+  try {
+    return Buffer.from(value, "base64").toString("base64") === value;
+  } catch {
+    return false;
+  }
+};
+
+// export const CourseDetailSchema = object({
+//   course: string(),
+//   instituteId: string(),
+//   dateOfStudyStart: date(),
+//   dateOfStudyEnd: date(),
+//   dateOfExpireCert: date(),
+//   // signature: string().refine(base64Validator, {
+//   //   message: "Invalid base64 format",
+//   // }),
+// });
+
+export const CourseDetailSchema = object({
+  course: string().min(1, {
+    message: "Course name is required",
+  }),
+  instituteId: string().optional(),
+  dateOfStudyStart: date({
+    required_error: "A date of Start is required.",
+  }),
+  dateOfStudyEnd: date({
+    required_error: "A date of End is required.",
+  }),
+  dateOfExpireCert: date().optional(),
 });

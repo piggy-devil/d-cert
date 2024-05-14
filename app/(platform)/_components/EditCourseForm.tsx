@@ -1,6 +1,6 @@
 "use client";
 
-import { updateCourse } from "@/actions/course";
+import { createCourse } from "@/actions/course";
 import { AuthWrapper } from "@/app/(auth)/_components/AuthWrapper";
 import { FormError } from "@/components/FormError";
 import { FormSuccess } from "@/components/FormSuccess";
@@ -43,7 +43,7 @@ export const EditCourseForm = ({
   const form = useForm<CourseSchemaType>({
     resolver: zodResolver(CourseSchema),
     defaultValues: {
-      course: course.course,
+      course: course.course || "",
     },
   });
 
@@ -52,7 +52,7 @@ export const EditCourseForm = ({
 
     startTransition(async () => {
       try {
-        const res = await updateCourse(values, id);
+        const res = await createCourse(values, id);
 
         if (res.success) {
           setSuccess(res.success);

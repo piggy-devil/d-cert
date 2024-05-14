@@ -33,8 +33,8 @@ export const DeleteCourse = ({ children, id }: DeleteCourseProps) => {
           variant: "destructive",
         });
       } finally {
-        setOpen(false);
         router.refresh();
+        setOpen(false);
       }
     });
   };

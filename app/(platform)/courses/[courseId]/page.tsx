@@ -1,5 +1,5 @@
 import { getCourse } from "@/actions/course";
-import { CourseForm } from "../../_components/CourseForm";
+import { CourseDetailForm } from "../../_components/CourseDetailForm";
 
 type CourseIdPageTypes = {
   params: { courseId: string };
@@ -7,10 +7,16 @@ type CourseIdPageTypes = {
 
 const CourseIdPage = async ({ params }: CourseIdPageTypes) => {
   const course = await getCourse(params.courseId);
-  console.log(course);
   return (
     <div className="flex justify-center">
-      <CourseForm course={course} />
+      <CourseDetailForm
+        courseId={params.courseId}
+        course={course.course}
+        instituteId={course.instituteId}
+        dateOfStudyStart={course.dateOfStudyStart}
+        dateOfStudyEnd={course.dateOfStudyEnd}
+        dateOfExpireCert={course.dateOfExpireCert}
+      />
     </div>
   );
 };

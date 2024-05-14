@@ -9,14 +9,6 @@ type CourseListProps = {
   courses: CourseSchemaType[];
 };
 
-// type CourseType = {
-//   _id: string;
-//   course: string;
-//   instituteId?: string;
-//   createdBy?: string;
-//   updatedBy?: string;
-// };
-
 export const CourseList = ({ courses }: CourseListProps) => {
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
@@ -29,7 +21,6 @@ export const CourseList = ({ courses }: CourseListProps) => {
           key={course._id}
           className="shadow-md rounded-xl px-2 py-2 mb-4 bg-slate-100 hover:rounded-lg w-full h-full"
         >
-          {/* {JSON.stringify(course)} */}
           <Course course={course} />
         </div>
       ))}

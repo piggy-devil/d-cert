@@ -24,7 +24,11 @@ import { z } from "zod";
 
 type CourseSchemaType = z.infer<typeof CourseSchema>;
 
-export const CreateCourseForm = () => {
+type CreateCourseFormTypes = {
+  onClose: () => void;
+};
+
+export const CreateCourseForm = ({ onClose }: CreateCourseFormTypes) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -48,7 +52,9 @@ export const CreateCourseForm = () => {
         toast({
           description: `${res.success}`,
         });
-        router.push(`/courses/${res.id}`);
+        // router.push(`/courses/${res.id}`);
+        router.refresh();
+        onClose();
       }
 
       if (res.error) {

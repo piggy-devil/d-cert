@@ -7,7 +7,7 @@ const CouresPage = async () => {
 
   return (
     <>
-      <div className="">Workspaces</div>
+      {courses && <div className="">Workspaces</div>}
       <div className="mt-10">
         {courses ? <CourseList courses={courses} /> : <EmptyCourse />}
       </div>
