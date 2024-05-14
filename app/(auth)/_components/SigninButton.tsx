@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { signIn, useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 
 const SigninButton = () => {
   const session = useSession();
@@ -14,21 +14,21 @@ const SigninButton = () => {
 
   return (
     <div className="flex ml-auto gap-2">
-      <Button variant="ghost" onClick={() => signIn()}>
+      {/* <Button variant="ghost" onClick={() => signIn()}>
         Sign In
       </Button>
       <Button>
         <Link href="/sign-up">Get started</Link>
         <ArrowRight className="ml-2" size={14} />
-      </Button>
+      </Button> */}
       {/* {user && session.status == "authenticated" && (
         <>
           <Button size="sm" asChild variant="ghost">
             <Link href="/courses">Course</Link>
           </Button>
         </>
-      )}
-      {!user && session.status !== "loading" && pathname !== "/sign-in" && (
+      )}*/}
+      {!user && session.status !== "loading" && pathname !== "/sign-in" ? (
         <>
           <Button variant="ghost" onClick={() => signIn()}>
             Sign In
@@ -38,7 +38,9 @@ const SigninButton = () => {
             <ArrowRight className="ml-2" size={14} />
           </Button>
         </>
-      )} */}
+      ) : (
+        <Loader2 className="animate-spin duration-500 text-slate-400" />
+      )}
     </div>
   );
 };

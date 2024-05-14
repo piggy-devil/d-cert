@@ -29,7 +29,7 @@ export const UserButton = ({ className, afterSignOutUrl }: UserButtonProps) => {
   return (
     <div className={cn(className)}>
       <AuthLoading>
-        <Loader2 className="animate-spin duration-500 text-slate-400" />
+        <Loader2 className="animate-spin duration-500 text-slate-400 ml-2" />
       </AuthLoading>
       {user && (
         <DropdownMenu>

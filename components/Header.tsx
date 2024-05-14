@@ -4,8 +4,6 @@ import { Navigation } from "./Navigation";
 import { AuthLoaded } from "@/app/(auth)/_components/AuthLoaded";
 import SigninButton from "@/app/(auth)/_components/SigninButton";
 import { AuthUnLoaded } from "@/app/(auth)/_components/AuthUnLoaded";
-import { AuthLoading } from "@/app/(auth)/_components/AuthLoading";
-import { Loader2 } from "lucide-react";
 
 export const Header = () => {
   return (
@@ -21,9 +19,6 @@ export const Header = () => {
               <SigninButton />
             </AuthUnLoaded>
             <AuthLoaded>
-              <AuthLoading>
-                <Loader2 className="animate-spin duration-500 text-slate-400" />
-              </AuthLoading>
               <UserButton afterSignOutUrl="/" />
             </AuthLoaded>
           </div>
