@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 
-import { CourseDetailSchema, CourseSchema } from "@/schemas";
+import { AddUserSchema, CourseDetailSchema, CourseSchema } from "@/schemas";
 import getSession from "@/lib/getSession";
 import { redirect } from "next/navigation";
 
@@ -235,5 +235,128 @@ export const getCourse = async (id: string) => {
     return await res.json();
   } catch (error) {
     return error;
+  }
+};
+
+export const addUser = async (
+  values: z.infer<typeof AddUserSchema>,
+  id?: string
+) => {
+  const validatedFields = AddUserSchema.safeParse(values);
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect("/api/auth/signin?callbackUrl=/courses");
+  }
+
+  if (!validatedFields.success) {
+    return { error: "Invalid fields!" };
+  }
+
+  const { titleName, firstName, lastName } = validatedFields.data;
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${id}/graduates`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify([
+          {
+            titleName: titleName,
+            firstName: firstName,
+            lastName: lastName,
+          },
+        ]),
+      }
+    );
+
+    if (!res.ok) {
+      return { error: res.statusText };
+    }
+
+    console.log("res: ", await res.json());
+
+    // const {} = await res.json();
+
+    return { success: "User Graduates Created!." };
+  } catch (error) {
+    console.log(error);
+    return { error: "User Graduates Fail!." };
+  }
+};
+
+export const updateUser = async (
+  values: z.infer<typeof AddUserSchema>,
+  id: string
+) => {
+  const validatedFields = AddUserSchema.safeParse(values);
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect("/api/auth/signin?callbackUrl=/courses");
+  }
+
+  if (!validatedFields.success) {
+    return { error: "Invalid fields!" };
+  }
+
+  const data = validatedFields.data;
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${id}/graduates`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user?.token}`,
+        },
+        body: JSON.stringify([data]),
+      }
+    );
+
+    if (!res.ok) {
+      return { error: res.statusText };
+    }
+
+    return { success: "Update Graduates User Successfully!." };
+  } catch (error) {
+    console.log(error);
+    return { error: "Something went wrong!." };
+  }
+};
+
+export const deleteUser = async (id: string) => {
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect(`/api/auth/signin?callbackUrl=/courses/${id}`);
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${id}/graduates`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${user?.token}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Delete Graduates User Fail!");
+    }
+
+    return { success: "Graduates User Delete Successfully!." };
+  } catch {
+    throw new Error("Something went wrong!.");
   }
 };

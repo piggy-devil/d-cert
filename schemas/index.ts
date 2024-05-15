@@ -68,17 +68,6 @@ const base64Validator = (value: string) => {
   }
 };
 
-// export const CourseDetailSchema = object({
-//   course: string(),
-//   instituteId: string(),
-//   dateOfStudyStart: date(),
-//   dateOfStudyEnd: date(),
-//   dateOfExpireCert: date(),
-//   // signature: string().refine(base64Validator, {
-//   //   message: "Invalid base64 format",
-//   // }),
-// });
-
 export const CourseDetailSchema = object({
   course: string().min(1, {
     message: "Course name is required",
@@ -91,4 +80,10 @@ export const CourseDetailSchema = object({
     required_error: "A date of End is required.",
   }),
   dateOfExpireCert: date().optional(),
+});
+
+export const AddUserSchema = object({
+  titleName: string().optional(),
+  firstName: string().optional(),
+  lastName: string().optional(),
 });
