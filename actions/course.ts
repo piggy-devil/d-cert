@@ -290,6 +290,38 @@ export const addUser = async (
   }
 };
 
+export const getUser = async (id: string) => {
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect("/api/auth/signin?callbackUrl=/courses");
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${id}/graduates`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user?.token}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      // throw new Error("Failed to get course.");
+      return { error: "Get User Graduates Fail!." };
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+    return { error: "Something went wrong!." };
+  }
+};
+
 export const updateUser = async (
   values: z.infer<typeof AddUserSchema>,
   id: string
@@ -332,17 +364,17 @@ export const updateUser = async (
   }
 };
 
-export const deleteUser = async (id: string) => {
+export const deleteUser = async (courseId: string, userId: string) => {
   const session = await getSession();
   const user = session?.user;
 
   if (!session || !user) {
-    redirect(`/api/auth/signin?callbackUrl=/courses/${id}`);
+    redirect(`/api/auth/signin?callbackUrl=/courses/${courseId}`);
   }
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${id}/graduates`,
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${courseId}/graduates/${userId}`,
       {
         method: "DELETE",
         headers: {
