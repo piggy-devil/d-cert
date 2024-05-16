@@ -94,7 +94,16 @@ export const AddUserSchema = object({
   }),
 });
 
-export type AddUserSchemaType = {
+export type CourseDetailTypes = {
+  courseId: string;
+  course: string;
+  instituteId?: string;
+  dateOfStudyStart: string;
+  dateOfStudyEnd: string;
+  dateOfExpireCert?: string;
+};
+
+export type AddUserSchemaTypes = {
   titleName: string;
   firstName: string;
   lastName: string;

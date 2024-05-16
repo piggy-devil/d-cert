@@ -1,13 +1,13 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { AddUser } from "./AddUser";
-import { AddUserSchemaType } from "@/schemas";
+import { AddUserSchemaTypes } from "@/schemas";
 
 type EditModalTypes = {
   edit: boolean;
   onClose: () => void;
   courseId: string;
   userId: string;
-  values?: AddUserSchemaType;
+  values?: AddUserSchemaTypes;
 };
 
 export const EditModal = ({

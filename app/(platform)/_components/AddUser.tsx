@@ -23,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import { AddUserSchema, AddUserSchemaType } from "@/schemas";
+import { AddUserSchema, AddUserSchemaTypes } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
@@ -64,7 +64,7 @@ type AddUserProps = {
   isEdit?: boolean;
   userId?: string;
   onClose?: () => void;
-  values?: AddUserSchemaType;
+  values?: AddUserSchemaTypes;
 };
 
 export const AddUser = ({
@@ -79,7 +79,7 @@ export const AddUser = ({
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const form = useForm<AddUserSchemaType>({
+  const form = useForm<AddUserSchemaTypes>({
     resolver: zodResolver(AddUserSchema),
     defaultValues: {
       titleName: isEdit ? values?.titleName : "",
@@ -108,7 +108,7 @@ export const AddUser = ({
     (value) => value !== ""
   );
 
-  const onSubmit = async (values: AddUserSchemaType) => {
+  const onSubmit = async (values: AddUserSchemaTypes) => {
     setError("");
     setSuccess("");
 

@@ -84,7 +84,7 @@ export const CourseDetailForm = ({
   useEffect(() => {
     const subscription = watch(() => {
       setError("");
-      setSuccess("");
+      // setSuccess("");
     });
     return () => subscription.unsubscribe();
   }, [watch]);

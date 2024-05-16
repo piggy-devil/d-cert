@@ -1,4 +1,4 @@
-import { getUser } from "@/actions/course";
+import { getUsers } from "@/actions/course";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 
@@ -7,7 +7,7 @@ type UserListProps = {
 };
 
 export const UserList = async ({ courseId }: UserListProps) => {
-  const users = await getUser(courseId);
+  const users = await getUsers(courseId);
 
   return <DataTable columns={columns} data={users} />;
 };

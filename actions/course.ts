@@ -290,7 +290,39 @@ export const addUser = async (
   }
 };
 
-export const getUser = async (id: string) => {
+export const getUser = async (courseId: string, userId: string) => {
+  const session = await getSession();
+  const user = session?.user;
+
+  if (!session || !user) {
+    redirect("/api/auth/signin?callbackUrl=/courses");
+  }
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${courseId}/graduates/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user?.token}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      // throw new Error("Failed to get course.");
+      return { error: "Get All User Graduates Fail!." };
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+    return { error: "Something went wrong!." };
+  }
+};
+
+export const getUsers = async (id: string) => {
   const session = await getSession();
   const user = session?.user;
 
@@ -312,7 +344,7 @@ export const getUser = async (id: string) => {
 
     if (!res.ok) {
       // throw new Error("Failed to get course.");
-      return { error: "Get User Graduates Fail!." };
+      return { error: "Get All User Graduates Fail!." };
     }
 
     return await res.json();

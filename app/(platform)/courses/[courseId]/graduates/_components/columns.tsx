@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { useState, useTransition } from "react";
 import { EditModal } from "@/app/(platform)/_components/EditModal";
+import { Cert } from "@/app/(platform)/_components/Cert";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -43,6 +44,15 @@ export const columns: ColumnDef<AddUserGraduates>[] = [
   {
     accessorKey: "lastName",
     header: "ชื่อสกุล",
+  },
+  {
+    id: "cert",
+    header: "GenCert",
+    cell: ({ row }) => {
+      const user = row.original;
+
+      return <Cert courseId={user.courseId} userId={user._id} />;
+    },
   },
   {
     id: "actions",
