@@ -1,4 +1,4 @@
-import { date, object, string } from "zod";
+import { date, object, string, z } from "zod";
 
 export type User = {
   id: string;
@@ -83,7 +83,19 @@ export const CourseDetailSchema = object({
 });
 
 export const AddUserSchema = object({
-  titleName: string().optional(),
-  firstName: string().optional(),
-  lastName: string().optional(),
+  titleName: string().min(1, {
+    message: "TitleName is required",
+  }),
+  firstName: string().min(1, {
+    message: "FirstName is required",
+  }),
+  lastName: string().min(1, {
+    message: "LastName is required",
+  }),
 });
+
+export type AddUserSchemaType = {
+  titleName: string;
+  firstName: string;
+  lastName: string;
+};

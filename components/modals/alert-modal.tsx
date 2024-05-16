@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Modal } from "../Modal";
+import { Loader2 } from "lucide-react";
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -39,7 +40,11 @@ export const AlertModal = ({
           ยกเลิก
         </Button>
         <Button disabled={loading} variant="destructive" onClick={onConfirm}>
-          ตกลง
+          {loading ? (
+            <Loader2 className="animate-spin duration-500 text-slate-400" />
+          ) : (
+            "ตกลง"
+          )}
         </Button>
       </div>
     </Modal>

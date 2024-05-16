@@ -1,6 +1,6 @@
 "use client";
 
-import { addUser } from "@/actions/course";
+import { addUser, updateUser } from "@/actions/course";
 import { AuthWrapper } from "@/app/(auth)/_components/AuthWrapper";
 import { FormError } from "@/components/FormError";
 import { FormSuccess } from "@/components/FormSuccess";
@@ -23,12 +23,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import { AddUserSchema, CourseSchema } from "@/schemas";
+import { AddUserSchema, AddUserSchemaType } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { Loader2 } from "lucide-react";
 
 const titleNames = [
   { value: "นาย", label: "นาย" },
@@ -61,35 +61,77 @@ const titleNames = [
 
 type AddUserProps = {
   courseId: string;
+  isEdit?: boolean;
+  userId?: string;
+  onClose?: () => void;
+  values?: AddUserSchemaType;
 };
 
-export const AddUser = ({ courseId }: AddUserProps) => {
+export const AddUser = ({
+  courseId,
+  isEdit,
+  userId,
+  onClose,
+  values,
+}: AddUserProps) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof AddUserSchema>>({
+  const form = useForm<AddUserSchemaType>({
     resolver: zodResolver(AddUserSchema),
     defaultValues: {
-      titleName: "",
-      firstName: "",
-      lastName: "",
+      titleName: isEdit ? values?.titleName : "",
+      firstName: isEdit ? values?.firstName : "",
+      lastName: isEdit ? values?.lastName : "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof AddUserSchema>) => {
+  useEffect(() => {
+    if (isEdit) {
+      const subscription = form.watch(() => {
+        setError("");
+        setSuccess("");
+      });
+      return () => subscription.unsubscribe();
+    }
+  }, [form, isEdit]);
+
+  const watchedValues = form.watch();
+  const isFormChanged =
+    isEdit &&
+    JSON.stringify(watchedValues) !==
+      JSON.stringify(form.control._defaultValues);
+
+  const isFormValid = Object.values(watchedValues).every(
+    (value) => value !== ""
+  );
+
+  const onSubmit = async (values: AddUserSchemaType) => {
     setError("");
+    setSuccess("");
 
     startTransition(async () => {
-      const res = await addUser(values, courseId);
+      let res = null;
+      if (isEdit) {
+        res = await updateUser(values, courseId, userId!); // Update user
+      } else {
+        res = await addUser(values, courseId); // Add user
+      }
 
       if (res.success) {
         setSuccess(res.success);
         toast({
           description: `${res.success}`,
         });
+
         router.refresh();
+        form.reset();
+
+        if (onClose) {
+          onClose(); // Close the dialog if onClose is provided
+        }
       }
 
       if (res.error) {
@@ -99,7 +141,10 @@ export const AddUser = ({ courseId }: AddUserProps) => {
   };
 
   return (
-    <AuthWrapper title="Create User" description="Blockchain Technology">
+    <AuthWrapper
+      title={isEdit ? "Edit User" : "Create User"}
+      description="Blockchain Technology"
+    >
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -111,10 +156,7 @@ export const AddUser = ({ courseId }: AddUserProps) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>คำนำหน้าชื่อ</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="โปรดระบุ - คำนำหน้าชื่อ" />
@@ -175,8 +217,18 @@ export const AddUser = ({ courseId }: AddUserProps) => {
           <FormError message={error} />
           <FormSuccess message={success} />
 
-          <Button type="submit" disabled={isPending} className="w-full">
-            Create User
+          <Button
+            type="submit"
+            disabled={isPending || !isFormValid || (isEdit && !isFormChanged)}
+            className="w-full"
+          >
+            {isPending ? (
+              <Loader2 className="animate-spin duration-500 text-slate-400" />
+            ) : isEdit ? (
+              "Edit User"
+            ) : (
+              "Create User"
+            )}
           </Button>
         </form>
       </Form>

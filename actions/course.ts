@@ -324,7 +324,8 @@ export const getUser = async (id: string) => {
 
 export const updateUser = async (
   values: z.infer<typeof AddUserSchema>,
-  id: string
+  courseId: string,
+  userId: string
 ) => {
   const validatedFields = AddUserSchema.safeParse(values);
   const session = await getSession();
@@ -342,14 +343,14 @@ export const updateUser = async (
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${id}/graduates`,
+      `${process.env.NEXT_PUBLIC_END_POINT_DIAS}/courses/${courseId}/graduates/${userId}`,
       {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${user?.token}`,
         },
-        body: JSON.stringify([data]),
+        body: JSON.stringify(data),
       }
     );
 

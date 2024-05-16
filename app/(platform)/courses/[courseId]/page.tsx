@@ -22,7 +22,7 @@ const CourseIdPage = async ({ params }: CourseIdPageTypes) => {
         dateOfStudyEnd={course.dateOfStudyEnd}
         dateOfExpireCert={course.dateOfExpireCert}
       />
-      <Link href={`/courses/${params.courseId}/receiver`}>
+      <Link href={`/courses/${params.courseId}/graduates`}>
         <ArrowRight className="mt-4" />
       </Link>
     </div>

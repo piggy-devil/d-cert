@@ -1,11 +1,11 @@
 import { AddUser } from "@/app/(platform)/_components/AddUser";
 import { UserList } from "./_components/user-list";
 
-type ReceiverPageProps = {
+type GraduatesPageProps = {
   params: { courseId: string };
 };
 
-const ReceiverPage = ({ params }: ReceiverPageProps) => {
+const GraduatesPage = ({ params }: GraduatesPageProps) => {
   const courseId = params.courseId;
   return (
     <div className="flex flex-row space-x-4">
@@ -19,4 +19,4 @@ const ReceiverPage = ({ params }: ReceiverPageProps) => {
   );
 };
 
-export default ReceiverPage;
+export default GraduatesPage;

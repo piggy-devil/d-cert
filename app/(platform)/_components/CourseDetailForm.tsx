@@ -91,6 +91,7 @@ export const CourseDetailForm = ({
 
   function onSubmit(values: z.infer<typeof CourseDetailSchema>) {
     setError("");
+    setSuccess("");
 
     startTransition(async () => {
       const res = await updateCourse(values, courseId);
