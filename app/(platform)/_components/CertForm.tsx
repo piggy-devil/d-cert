@@ -36,7 +36,7 @@ export const CertForm = ({ courseId, userId }: CertFormProps) => {
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Cert Details</Button>
+        <Button variant="outline">Cert View</Button>
       </DialogTrigger>
       <DialogContent className="max-w-[1150px] w-[1150px] p-6">
         {courseData && userData ? (
