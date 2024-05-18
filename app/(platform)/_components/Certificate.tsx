@@ -7,9 +7,7 @@ type CertificateProps = {
   course?: string;
   dateOfStudyStart?: string;
   dateOfStudyEnd?: string;
-  signature?: {
-    preview: string;
-  };
+  signature?: string;
   signatureDetails?: string;
 };
 
@@ -63,7 +61,8 @@ export const Certificate = ({
             <div className="flex items-center justify-center">
               <Image
                 className="font-bold"
-                src="/signature.png"
+                // src="/signature.png"
+                src={signature as string}
                 alt="certlogo"
                 width={100}
                 height={100}

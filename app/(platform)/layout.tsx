@@ -1,5 +1,3 @@
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 
 type DashboardLayoutProps = {
@@ -8,11 +6,6 @@ type DashboardLayoutProps = {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return (
-    // <div className="bg-slate-50 h-full">
-    //   <Navbar />
-    //   {children}
-    //   <Footer />
-    // </div>
     <>
       <Header />
       <main className="px-3 lg:px-14">{children}</main>

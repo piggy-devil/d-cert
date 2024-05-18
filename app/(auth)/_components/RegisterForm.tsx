@@ -22,6 +22,7 @@ import { register } from "@/actions/auth";
 import { redirect } from "next/navigation";
 import { DEFAULT_REDIRECT_ON_LOGIN } from "@/routes";
 import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 export const RegisterForm = () => {
   const { toast } = useToast();
@@ -149,7 +150,11 @@ export const RegisterForm = () => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            Sign Up
+            {isPending ? (
+              <Loader2 className="animate-spin duration-500 text-slate-400" />
+            ) : (
+              "Sign Up"
+            )}
           </Button>
         </form>
       </Form>

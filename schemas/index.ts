@@ -80,6 +80,7 @@ export const CourseDetailSchema = object({
     required_error: "A date of End is required.",
   }),
   dateOfExpireCert: date().optional(),
+  signature: string().optional(),
 });
 
 export const AddUserSchema = object({
@@ -101,6 +102,7 @@ export type CourseDetailTypes = {
   dateOfStudyStart: string;
   dateOfStudyEnd: string;
   dateOfExpireCert?: string;
+  signature?: string;
 };
 
 export type AddUserSchemaTypes = {

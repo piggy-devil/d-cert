@@ -45,7 +45,7 @@ export const CertForm = ({ courseId, userId }: CertFormProps) => {
             course={`${courseData.course}`}
             dateOfStudyStart={`${courseData.dateOfStudyStart}`}
             dateOfStudyEnd={`${courseData.dateOfStudyEnd}`}
-            signature={{ preview: "path/to/signature.png" }}
+            signature={courseData.signature}
             signatureDetails="John Smith, Instructor"
           />
         ) : (

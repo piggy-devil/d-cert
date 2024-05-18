@@ -7,17 +7,12 @@ import { useMedia } from "react-use";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
+import { useSession } from "next-auth/react";
 
-const routes = [
-  {
-    href: "/",
-    label: "Overview",
-  },
-  {
-    href: "/courses",
-    label: "Courses",
-  },
-];
+interface Route {
+  href: string;
+  label: string;
+}
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,6 +20,24 @@ export const Navigation = () => {
   const router = useRouter();
   const pathname = usePathname();
   const isMobile = useMedia("(max-width: 1024px)", false);
+
+  const { data: session } = useSession();
+  const user = session?.user;
+
+  const routes: Route[] = [
+    {
+      href: "/",
+      label: "Overview",
+    },
+    ...(user
+      ? [
+          {
+            href: "/courses",
+            label: "Courses",
+          },
+        ]
+      : []),
+  ];
 
   const onClick = (href: string) => {
     router.push(href);

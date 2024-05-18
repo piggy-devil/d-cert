@@ -27,6 +27,7 @@ import { FormSuccess } from "@/components/FormSuccess";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { DEFAULT_REDIRECT_ON_LOGIN } from "@/routes";
+import { Loader2 } from "lucide-react";
 
 type LoginFormProps = {
   className?: string;
@@ -133,7 +134,11 @@ export const LoginForm = (props: LoginFormProps) => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            Sign In
+            {isPending ? (
+              <Loader2 className="animate-spin duration-500 text-slate-400" />
+            ) : (
+              "Sign In"
+            )}
           </Button>
         </form>
       </Form>

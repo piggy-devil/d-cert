@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -32,6 +32,8 @@ import { FormSuccess } from "@/components/FormSuccess";
 import { AuthWrapper } from "@/app/(auth)/_components/AuthWrapper";
 import { updateCourse } from "@/actions/course";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { resizeImage } from "@/lib/image";
 
 type Props = {
   courseId: string;
@@ -40,6 +42,7 @@ type Props = {
   dateOfStudyStart: string;
   dateOfStudyEnd: string;
   dateOfExpireCert?: string;
+  signature?: string;
 };
 
 export const CourseDetailForm = ({
@@ -49,6 +52,7 @@ export const CourseDetailForm = ({
   dateOfStudyStart,
   dateOfStudyEnd,
   dateOfExpireCert,
+  signature,
 }: Props) => {
   const router = useRouter();
   const [error, setError] = useState<string | undefined>("");
@@ -62,6 +66,21 @@ export const CourseDetailForm = ({
     dateOfStudyEnd ? new Date(dateOfStudyEnd) : undefined
   );
 
+  const [signatureBase64, setSignatureBase64] = useState<string>("");
+
+  const convertToBase64 = (file: File) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      setSignatureBase64(base64String);
+      setValue("signature", base64String); // Update the form state
+    };
+    reader.onerror = (error) => {
+      console.error("Error converting file to base64:", error);
+    };
+  };
+
   const form = useForm<z.infer<typeof CourseDetailSchema>>({
     resolver: zodResolver(CourseDetailSchema),
     defaultValues: {
@@ -71,10 +90,11 @@ export const CourseDetailForm = ({
       dateOfExpireCert: dateOfExpireCert
         ? new Date(dateOfExpireCert)
         : undefined,
+      signature: signature,
     },
   });
 
-  const { watch, reset } = form;
+  const { watch, reset, setValue } = form;
 
   const watchedValues = watch();
   let isFormChanged =
@@ -88,6 +108,20 @@ export const CourseDetailForm = ({
     });
     return () => subscription.unsubscribe();
   }, [watch]);
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      try {
+        const resizedImage = await resizeImage(file, 400, 400);
+        convertToBase64(resizedImage);
+      } catch (error) {
+        console.error("Error resizing image:", error);
+      }
+    }
+  };
 
   function onSubmit(values: z.infer<typeof CourseDetailSchema>) {
     setError("");
@@ -270,6 +304,43 @@ export const CourseDetailForm = ({
               </FormItem>
             )}
           />
+
+          {/* <Image src={signature} alt="Signature" width={120} height={120} /> */}
+          {signatureBase64 && (
+            <div className="flex items-center justify-center">
+              <Image
+                src={signatureBase64}
+                alt="Signature"
+                width={120}
+                height={120}
+              />
+            </div>
+          )}
+          {signature && !signatureBase64 && (
+            <div className="flex items-center justify-center">
+              <Image src={signature} alt="Signature" width={120} height={120} />
+            </div>
+          )}
+
+          <FormField
+            control={form.control}
+            name="signature"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>ลายเซ็นต์</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled={isPending}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormError message={error} />
           <FormSuccess message={success} />
 
@@ -278,7 +349,11 @@ export const CourseDetailForm = ({
             disabled={isPending || !isFormChanged}
             className="w-full"
           >
-            Create Course
+            {isPending ? (
+              <Loader2 className="animate-spin duration-500 text-slate-400" />
+            ) : (
+              "Create Course"
+            )}
           </Button>
         </form>
       </Form>
