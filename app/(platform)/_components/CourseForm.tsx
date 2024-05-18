@@ -62,7 +62,7 @@ export const CourseForm = ({ course }: CourseFormTypes) => {
   };
 
   return (
-    <AuthWrapper title="Create Course" description="Blockchain Technology">
+    <AuthWrapper title="สร้างหลักสูตร" description="Blockchain Technology">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -73,12 +73,12 @@ export const CourseForm = ({ course }: CourseFormTypes) => {
             name="course"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Course</FormLabel>
+                <FormLabel>หลักสูตร</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     disabled={isPending}
-                    placeholder="course name"
+                    placeholder="ชื่อหลักสูตร"
                     type="text"
                     value={course.course}
                   />
@@ -90,7 +90,7 @@ export const CourseForm = ({ course }: CourseFormTypes) => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            Create Course
+            สร้าง
           </Button>
         </form>
       </Form>

@@ -142,7 +142,7 @@ export const AddUser = ({
 
   return (
     <AuthWrapper
-      title={isEdit ? "Edit User" : "Create User"}
+      title={isEdit ? "แก้ไขรายชื่อ" : "ผู้จบหลักสูตร"}
       description="Blockchain Technology"
     >
       <Form {...form}>
@@ -225,9 +225,9 @@ export const AddUser = ({
             {isPending ? (
               <Loader2 className="animate-spin duration-500 text-slate-400" />
             ) : isEdit ? (
-              "Edit User"
+              "แก้ไข"
             ) : (
-              "Create User"
+              "เพิ่ม"
             )}
           </Button>
         </form>

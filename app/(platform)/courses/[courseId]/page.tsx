@@ -10,6 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Button } from "@/components/ui/button";
 
 type CourseIdPageTypes = {
   params: { courseId: string };
@@ -19,28 +20,40 @@ const CourseIdPage = async ({ params }: CourseIdPageTypes) => {
   const course = await getCourse(params.courseId);
   return (
     <>
-      <div className="mb-8">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/courses">Courses</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>details</BreadcrumbPage>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href={`/courses/${params.courseId}/graduates`}>
-                  Graduates
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/courses">Courses</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>details</BreadcrumbPage>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href={`/courses/${params.courseId}/graduates`}>
+                    Graduates
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+        <div>
+          <Link href={`/courses/${params.courseId}/graduates`}>
+            <Button
+              variant="outline"
+              className="text-primary hover:bg-primary hover:text-white"
+            >
+              เพิ่มผู้จบหลักสูตร
+            </Button>
+          </Link>
+        </div>
       </div>
       <div className="flex justify-center gap-x-4">
         {/* <Link href={`/courses`}>

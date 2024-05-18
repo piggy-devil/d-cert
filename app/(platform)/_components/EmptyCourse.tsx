@@ -26,7 +26,7 @@ export const EmptyCourse = () => {
         {/* <Button size="lg">Create course</Button> */}
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
-            <Button size="lg">Create course</Button>
+            <Button size="lg">สร้างหลักสูตร</Button>
           </DialogTrigger>
           <DialogContent className="p-0 bg-transparent border-none max-w-[480px]">
             <CreateCourseForm onClose={handleFormSubmit} />

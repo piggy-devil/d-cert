@@ -19,6 +19,18 @@ export const Certificate = ({
   signature,
   signatureDetails,
 }: CertificateProps) => {
+  const formatThaiDate = (date: string | undefined) => {
+    return date && moment(date).isValid()
+      ? `${moment(date).locale("th").format("D MMMM")} ${moment(date)
+          .add(543, "years")
+          .format("YYYY")}`
+      : "";
+  };
+
+  const dashValue = (date: string | undefined) => {
+    return date != undefined ? "-" : "";
+  };
+
   return (
     <div className="flex items-center justify-center w-full h-full text-black">
       <div className="bg-white p-8 w-[1122px] aspect-[3/2] text-center -translate-x-3">
@@ -37,45 +49,27 @@ export const Certificate = ({
           </span>
           <h2 className="text-3xl font-semibold my-4">{course}</h2>
           <span className="text-xl">
-            {`${
-              dateOfStudyStart
-                ? moment(dateOfStudyStart).locale("th").format("D MMMM")
-                : "-"
-            } ${
-              dateOfStudyStart
-                ? moment(dateOfStudyStart).add(543, "years").format("YYYY")
-                : "-"
-            }
-            - ${
+            {`${formatThaiDate(dateOfStudyStart)} ${dashValue(
               dateOfStudyEnd
-                ? moment(dateOfStudyEnd).locale("th").format("D MMMM")
-                : "-"
-            } ${
-              dateOfStudyStart
-                ? moment(dateOfStudyStart).add(543, "years").format("YYYY")
-                : "-"
-            }`}
+            )} ${formatThaiDate(dateOfStudyEnd)}`}
           </span>
           <div className="mt-12 inline-block">
-            {/* <img className="h-24 w-36 mb-2" src={signature.preview} alt="Signature" /> */}
-            <div className="flex items-center justify-center">
-              <Image
-                className="font-bold"
-                // src="/signature.png"
-                src={signature as string}
-                alt="certlogo"
-                width={100}
-                height={100}
-              />
-            </div>
+            {signature && (
+              <div className="flex items-center justify-center">
+                <Image
+                  className="font-bold"
+                  src={signature as string}
+                  alt="signature"
+                  width={100}
+                  height={100}
+                />
+              </div>
+            )}
             <span className="block h-px w-48 bg-black mx-auto mb-2"></span>
             <span className="text-sm">{signatureDetails}</span>
           </div>
         </div>
       </div>
-      {/* <button className="border-2 border-black w-full bg-gray-200 p-4 text-lg mt-12 hover:bg-black hover:text-white transition-all duration-300">
-        Download PDF
-      </button> */}
     </div>
   );
 };

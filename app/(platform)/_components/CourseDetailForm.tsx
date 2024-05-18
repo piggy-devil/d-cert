@@ -145,10 +145,7 @@ export const CourseDetailForm = ({
   }
 
   return (
-    <AuthWrapper
-      title="Create Course Details"
-      description="Blockchain Technology"
-    >
+    <AuthWrapper title="รายละเอียดหลักสูตร" description="Blockchain Technology">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
@@ -352,7 +349,7 @@ export const CourseDetailForm = ({
             {isPending ? (
               <Loader2 className="animate-spin duration-500 text-slate-400" />
             ) : (
-              "Create Course"
+              "แก้ไขหลักสูตร"
             )}
           </Button>
         </form>

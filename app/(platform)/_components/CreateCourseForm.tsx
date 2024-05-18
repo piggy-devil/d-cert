@@ -64,7 +64,7 @@ export const CreateCourseForm = ({ onClose }: CreateCourseFormTypes) => {
   };
 
   return (
-    <AuthWrapper title="Create Course" description="Blockchain Technology">
+    <AuthWrapper title="สร้างหลักสูตร" description="Blockchain Technology">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -91,7 +91,7 @@ export const CreateCourseForm = ({ onClose }: CreateCourseFormTypes) => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            Create Course
+            สร้าง
           </Button>
         </form>
       </Form>
