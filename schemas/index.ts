@@ -110,3 +110,17 @@ export type AddUserSchemaTypes = {
   firstName: string;
   lastName: string;
 };
+
+export const SettingsSchema = object({
+  name: string().min(1, {
+    message: "name is required",
+  }),
+  email: string()
+    .min(1, {
+      message: "Please enter your email address",
+    })
+    .email({
+      message: "Please enter a valid email address",
+    }),
+  role: string(),
+});

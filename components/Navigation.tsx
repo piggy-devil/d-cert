@@ -35,6 +35,10 @@ export const Navigation = () => {
             href: "/courses",
             label: "Courses",
           },
+          {
+            href: "/settings",
+            label: "Settings",
+          },
         ]
       : []),
   ];

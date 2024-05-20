@@ -12,7 +12,7 @@ export const Sidebar = async () => {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 mt-4">
       {!!institute && <Institute name={institute[0].instituteName} />}
       <CreateProjForm user={user} />
     </div>

@@ -77,6 +77,8 @@ const config = {
       }
 
       if (pathname === "/middle") return !!auth;
+      if (pathname === "/settings") return !!auth;
+
       return true;
     },
     jwt({ token }) {

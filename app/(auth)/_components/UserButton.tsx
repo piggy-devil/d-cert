@@ -52,7 +52,7 @@ export const UserButton = ({ className, afterSignOutUrl }: UserButtonProps) => {
             <DropdownMenuSeparator />
             <DropdownMenuGroup className="ml-2 my-2">
               <DropdownMenuItem asChild>
-                <Link href="/client" className="cursor-pointer w-full">
+                <Link href="/settings" className="cursor-pointer w-full">
                   <Settings className="mr-4" />
                   <span>การตั้งค่า</span>
                 </Link>
