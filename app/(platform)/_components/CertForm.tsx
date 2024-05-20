@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Certificate } from "./Certificate";
 import { AddUserSchemaTypes, CourseDetailTypes } from "@/schemas";
 import { getCourse, getUser } from "@/actions/course";
-import { Loader2 } from "lucide-react";
+import { Loader2, View } from "lucide-react";
 
 type CertFormProps = {
   courseId: string;
@@ -36,12 +36,14 @@ export const CertForm = ({ courseId, userId }: CertFormProps) => {
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Cert View</Button>
+        {/* <Button variant="ghost"> */}
+        <View className="cursor-pointer hover:w-6 hover:h-6" size={18} />
+        {/* </Button> */}
       </DialogTrigger>
       <DialogContent className="max-w-[1150px] w-[1150px] p-6">
         {courseData && userData ? (
           <Certificate
-            name={`${userData.titleName} ${userData.firstName} ${userData.lastName}`}
+            name={`${userData.titleName}${userData.firstName} ${userData.lastName}`}
             course={`${courseData.course}`}
             dateOfStudyStart={`${courseData.dateOfStudyStart}`}
             dateOfStudyEnd={`${courseData.dateOfStudyEnd}`}

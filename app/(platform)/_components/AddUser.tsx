@@ -29,38 +29,11 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
-
-const titleNames = [
-  { value: "นาย", label: "นาย" },
-  { value: "นาง", label: "นาง" },
-  { value: "นางสาว", label: "นางสาว" },
-  { value: "ดร.", label: "ดร." },
-  { value: "ผศ.", label: "ผศ." },
-  { value: "รศ.", label: "รศ." },
-  { value: "ศ.", label: "ศ." },
-  { value: "อาจารย์", label: "อาจารย์" },
-  { value: "พล.ต.อ.", label: "พล.ต.อ." },
-  { value: "พล.อ.", label: "พล.อ." },
-  { value: "ม.ล.", label: "ม.ล." },
-  { value: "ม.ร.ว.", label: "ม.ร.ว." },
-  { value: "พล.ต.ท.", label: "พล.ต.ท." },
-  { value: "พล.ต.ต.", label: "พล.ต.ต." },
-  { value: "พ.ต.อ.", label: "พ.ต.อ." },
-  { value: "พ.ต.ท.", label: "พ.ต.ท." },
-  { value: "พ.ต.ต.", label: "พ.ต.ต." },
-  { value: "ร.ต.อ.", label: "ร.ต.อ." },
-  { value: "ร.ต.ท.", label: "ร.ต.ท." },
-  { value: "ร.ต.ต.", label: "ร.ต.ต." },
-  { value: "ร.ต.", label: "ร.ต." },
-  { value: "ร.ท.", label: "ร.ท." },
-  { value: "ร.อ.", label: "ร.อ." },
-  { value: "จ.ส.อ.", label: "จ.ส.อ." },
-  { value: "จ.ส.ท.", label: "จ.ส.ท." },
-  { value: "จ.ส.ต.", label: "จ.ส.ต." },
-];
+import { titleNames } from "@/lib/title";
 
 type AddUserProps = {
   courseId: string;
+  courseName: string;
   isEdit?: boolean;
   userId?: string;
   onClose?: () => void;
@@ -69,6 +42,7 @@ type AddUserProps = {
 
 export const AddUser = ({
   courseId,
+  courseName,
   isEdit,
   userId,
   onClose,
@@ -79,12 +53,15 @@ export const AddUser = ({
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
+  console.log(courseName);
+
   const form = useForm<AddUserSchemaTypes>({
     resolver: zodResolver(AddUserSchema),
     defaultValues: {
       titleName: isEdit ? values?.titleName : "",
       firstName: isEdit ? values?.firstName : "",
       lastName: isEdit ? values?.lastName : "",
+      recipientEmail: isEdit ? values?.recipientEmail : "",
     },
   });
 
@@ -143,7 +120,7 @@ export const AddUser = ({
   return (
     <AuthWrapper
       title={isEdit ? "แก้ไขรายชื่อ" : "ผู้จบหลักสูตร"}
-      description="Blockchain Technology"
+      description={`${courseName}`}
     >
       <Form {...form}>
         <form
@@ -207,6 +184,25 @@ export const AddUser = ({
                     disabled={isPending}
                     placeholder="เข็มกลัด"
                     type="text"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="recipientEmail"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>อีเมล</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    disabled={isPending}
+                    placeholder="exsample@mwa.co.th"
+                    type="email"
                   />
                 </FormControl>
                 <FormMessage />

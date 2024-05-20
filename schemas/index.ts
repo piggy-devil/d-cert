@@ -83,6 +83,13 @@ export const CourseDetailSchema = object({
   signature: string().optional(),
 });
 
+export type AddUserSchemaTypes = {
+  titleName: string;
+  firstName: string;
+  lastName: string;
+  recipientEmail: string;
+};
+
 export const AddUserSchema = object({
   titleName: string().min(1, {
     message: "TitleName is required",
@@ -93,6 +100,13 @@ export const AddUserSchema = object({
   lastName: string().min(1, {
     message: "LastName is required",
   }),
+  recipientEmail: string()
+    .min(1, {
+      message: "Please enter user email address",
+    })
+    .email({
+      message: "Please enter a valid email address",
+    }),
 });
 
 export type CourseDetailTypes = {
@@ -103,12 +117,6 @@ export type CourseDetailTypes = {
   dateOfStudyEnd: string;
   dateOfExpireCert?: string;
   signature?: string;
-};
-
-export type AddUserSchemaTypes = {
-  titleName: string;
-  firstName: string;
-  lastName: string;
 };
 
 export const SettingsSchema = object({

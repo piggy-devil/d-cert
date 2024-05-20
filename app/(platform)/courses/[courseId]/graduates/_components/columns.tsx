@@ -29,6 +29,7 @@ export type AddUserGraduates = {
   titleName: string;
   firstName: string;
   lastName: string;
+  recipientEmail: string;
   courseId: string;
 };
 
@@ -46,8 +47,12 @@ export const columns: ColumnDef<AddUserGraduates>[] = [
     header: "ชื่อสกุล",
   },
   {
+    accessorKey: "recipientEmail",
+    header: "อีเมล",
+  },
+  {
     id: "cert",
-    header: "GenCert",
+    header: "Cert",
     cell: ({ row }) => {
       const user = row.original;
 
@@ -92,6 +97,7 @@ export const columns: ColumnDef<AddUserGraduates>[] = [
         titleName: user.titleName,
         firstName: user.firstName,
         lastName: user.lastName,
+        recipientEmail: user.recipientEmail,
       };
 
       return (
