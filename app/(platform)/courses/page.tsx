@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { getMeCourse } from "@/actions/course";
 import { EmptyCourse } from "../_components/EmptyCourse";
-import { CourseList } from "../_components/CourseList";
+import { CourseList } from "./_components/CourseList";
+import { CoursesLayout } from "@/app/(platform)/courses/_components/CoursesLayout";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,13 +11,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import Link from "next/link";
 
-const CouresPage = async () => {
+const CoursePage = async () => {
   const courses = await getMeCourse();
 
   return (
-    <>
+    <CoursesLayout>
       <div className="mb-8">
         <Breadcrumb>
           <BreadcrumbList>
@@ -35,8 +36,8 @@ const CouresPage = async () => {
       <div className="mt-10">
         {courses ? <CourseList courses={courses} /> : <EmptyCourse />}
       </div>
-    </>
+    </CoursesLayout>
   );
 };
 
-export default CouresPage;
+export default CoursePage;

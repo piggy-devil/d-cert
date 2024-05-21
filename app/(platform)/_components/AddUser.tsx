@@ -33,7 +33,7 @@ import { titleNames } from "@/lib/title";
 
 type AddUserProps = {
   courseId: string;
-  courseName: string;
+  courseName?: string;
   isEdit?: boolean;
   userId?: string;
   onClose?: () => void;
@@ -52,8 +52,6 @@ export const AddUser = ({
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-
-  console.log(courseName);
 
   const form = useForm<AddUserSchemaTypes>({
     resolver: zodResolver(AddUserSchema),
@@ -120,7 +118,7 @@ export const AddUser = ({
   return (
     <AuthWrapper
       title={isEdit ? "แก้ไขรายชื่อ" : "ผู้จบหลักสูตร"}
-      description={`${courseName}`}
+      description={isEdit ? "" : `${courseName}`}
     >
       <Form {...form}>
         <form

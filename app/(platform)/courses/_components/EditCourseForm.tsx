@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { CourseSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -99,8 +100,12 @@ export const EditCourseForm = ({
           />
           <FormError message={error} />
           <FormSuccess message={success} />
-          <Button type="submit" disabled={isPending} className="w-full">
-            Edit Course
+          <Button type="submit" disabled={isPending} className="w-full mt-2">
+            {isPending ? (
+              <Loader2 className="animate-spin duration-500 text-slate-400" />
+            ) : (
+              "Edit Course"
+            )}
           </Button>
         </form>
         <Button variant="ghost" onClick={onClose} className="w-full mt-2">

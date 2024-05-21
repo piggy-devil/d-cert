@@ -18,9 +18,10 @@ import { deleteUser } from "@/actions/course";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { EditModal } from "@/app/(platform)/_components/EditModal";
 import { Cert } from "@/app/(platform)/_components/Cert";
+import { useCourse } from "@/hooks/use-course";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -52,7 +53,7 @@ export const columns: ColumnDef<AddUserGraduates>[] = [
   },
   {
     id: "cert",
-    header: "Cert",
+    header: "GenCert",
     cell: ({ row }) => {
       const user = row.original;
 

@@ -5,24 +5,25 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Select, SelectTrigger } from "@/components/ui/select";
-import { ChevronsUpDown, CirclePlus, Plus, User2 } from "lucide-react";
+import { ChevronsUpDown, User2 } from "lucide-react";
 import { User } from "next-auth";
-import Link from "next/link";
+import { NewButton } from "./New";
+import { CourseSideList } from "../courses/_components/CourseSideList";
+import { getMeCourse } from "@/actions/course";
 
 type CreateProjFormProps = {
   user: User | undefined;
+  courseId: string | undefined;
 };
 
-export const CreateProjForm = ({ user }: CreateProjFormProps) => {
+export const CreateProjForm = async ({
+  user,
+  courseId,
+}: CreateProjFormProps) => {
+  const courses = await getMeCourse();
+
   return (
     <div className="font-medium flex items-center mb-1">
-      {/* <span>Workspaces</span> */}
-
-      {/* <Select>
-        <SelectTrigger className="w-[180px]">xxxx</SelectTrigger>
-      </Select> */}
-
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="outline" className="w-60 py-6 hover:bg-white">
@@ -42,21 +43,11 @@ export const CreateProjForm = ({ user }: CreateProjFormProps) => {
         </PopoverTrigger>
         <PopoverContent className="w-60">
           <div className="font-medium text-center text-gray-600 pb-2 text-sm">
-            <Button
-              variant="ghost"
-              className="flex justify-between w-full cursor-pointer"
-            >
-              <CirclePlus size={20} />
-              <Link href="/">Create Organiztion</Link>
-            </Button>
+            <NewButton>หลักสูตร</NewButton>
+            {courses && (
+              <CourseSideList courses={courses} currentCourseId={courseId} />
+            )}
           </div>
-          {/* <form action={handleSubmit}>
-            <div>
-              <ImagesForm name="image" />
-              <InputForm id="title" label="Organization Title" type="text" />
-              <FormSubmit className="w-full mt-2">Create Org</FormSubmit>
-            </div>
-          </form> */}
         </PopoverContent>
       </Popover>
     </div>

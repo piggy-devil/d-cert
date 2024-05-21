@@ -34,6 +34,7 @@ import { updateCourse } from "@/actions/course";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { resizeImage } from "@/lib/image";
+import { DeleteCourse } from "./DeleteCourse";
 
 type Props = {
   courseId: string;
@@ -42,7 +43,7 @@ type Props = {
   dateOfStudyStart: string;
   dateOfStudyEnd: string;
   dateOfExpireCert?: string;
-  signature?: string;
+  signature: string;
 };
 
 export const CourseDetailForm = ({
@@ -140,6 +141,7 @@ export const CourseDetailForm = ({
       }
       if (res.error) {
         setError(res.error);
+        setSuccess("");
       }
     });
   }
@@ -353,6 +355,13 @@ export const CourseDetailForm = ({
             )}
           </Button>
         </form>
+        <DeleteCourse
+          className="w-full hover:bg-destructive hover:text-white mt-2"
+          id={courseId}
+          afterDelete="/courses"
+        >
+          Delete
+        </DeleteCourse>
       </Form>
     </AuthWrapper>
   );

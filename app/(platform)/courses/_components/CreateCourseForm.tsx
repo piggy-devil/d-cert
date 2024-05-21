@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { CourseSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -52,8 +53,8 @@ export const CreateCourseForm = ({ onClose }: CreateCourseFormTypes) => {
         toast({
           description: `${res.success}`,
         });
-        // router.push(`/courses/${res.id}`);
         router.refresh();
+        router.push(`/courses/${res.id}`);
         onClose();
       }
 
@@ -75,7 +76,7 @@ export const CreateCourseForm = ({ onClose }: CreateCourseFormTypes) => {
             name="course"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Course</FormLabel>
+                <FormLabel>ชื่อหลักสูตร</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -91,7 +92,11 @@ export const CreateCourseForm = ({ onClose }: CreateCourseFormTypes) => {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" disabled={isPending} className="w-full">
-            สร้าง
+            {isPending ? (
+              <Loader2 className="animate-spin duration-500 text-slate-400" />
+            ) : (
+              "สร้าง"
+            )}
           </Button>
         </form>
       </Form>

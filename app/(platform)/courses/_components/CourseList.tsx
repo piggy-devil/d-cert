@@ -1,7 +1,7 @@
-import { CourseSchema } from "@/schemas";
 import { z } from "zod";
+import { CourseSchema } from "@/schemas";
 import { Course } from "./Course";
-import { NewButton } from "./New";
+import { NewButton } from "../../_components/New";
 
 type CourseSchemaType = z.infer<typeof CourseSchema>;
 
@@ -10,6 +10,7 @@ type CourseListProps = {
 };
 
 export const CourseList = ({ courses }: CourseListProps) => {
+  // console.log(courses);
   return (
     <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
       <div className="shadow-md rounded-xl px-2 py-2 mb-4 bg-slate-100 hover:rounded-lg w-full h-full">

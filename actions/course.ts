@@ -226,13 +226,17 @@ export const getCourse = async (id: string) => {
       }
     );
 
-    // console.log("res: ", res);
-
     if (!res.ok) {
       throw new Error("Failed to get course.");
     }
 
-    return await res.json();
+    const course = await res.json();
+
+    // Transform _id to courseId
+    return {
+      ...course,
+      // courseId: course._id,
+    };
   } catch (error) {
     return error;
   }

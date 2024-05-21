@@ -4,10 +4,11 @@ import { columns } from "./columns";
 
 type UserListProps = {
   courseId: string;
+  courseName: string;
 };
 
-export const UserList = async ({ courseId }: UserListProps) => {
+export const UserList = async ({ courseId, courseName }: UserListProps) => {
   const users = await getUsers(courseId);
 
-  return <DataTable columns={columns} data={users} />;
+  return <DataTable columns={columns} data={users} courseName={courseName} />;
 };

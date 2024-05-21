@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { ShieldCheckIcon } from "lucide-react";
-import { CreateCourseForm } from "./CreateCourseForm";
+import { CreateCourseForm } from "../courses/_components/CreateCourseForm";
 import { useState } from "react";
 
 export const EmptyCourse = () => {

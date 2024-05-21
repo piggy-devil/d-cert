@@ -139,7 +139,7 @@ export const SettingsForm = ({ name, email, role }: SettingsSchemaType) => {
             onClick={() => setAllowed(false)}
             className="w-full"
           >
-            เปลี่ยนแปลงข้อมูล
+            บันทึก
           </Button>
         ) : isPending ? (
           <div className="flex items-center">
@@ -152,7 +152,7 @@ export const SettingsForm = ({ name, email, role }: SettingsSchemaType) => {
             onClick={() => setAllowed(true)}
             className="w-full"
           >
-            บันทึก
+            เปลี่ยนแปลงข้อมูล
           </Button>
         )}
       </form>

@@ -13,14 +13,14 @@ type EditCourseTypes = {
 export const EditCourse = ({ course, onClose }: EditCourseTypes) => {
   const [open, setOpen] = useState(false);
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
           className="w-full"
           onClick={() => setOpen(true)}
         >
-          Update
+          Edit
         </Button>
       </DialogTrigger>
       <DialogContent className="p-0 bg-transparent border-none max-w-[480px]">

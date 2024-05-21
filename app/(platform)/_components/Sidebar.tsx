@@ -3,7 +3,11 @@ import { CreateProjForm } from "./CreateProjForm";
 import { Institute } from "./Institute";
 import { getInstitutes } from "@/actions/institutes";
 
-export const Sidebar = async () => {
+type SidebarProps = {
+  courseId?: string;
+};
+
+export const Sidebar = async ({ courseId }: SidebarProps) => {
   const session = await getSession();
   const user = session?.user;
   let institute = null;
@@ -14,7 +18,7 @@ export const Sidebar = async () => {
   return (
     <div className="space-y-2 mt-4">
       {!!institute && <Institute name={institute[0].instituteName} />}
-      <CreateProjForm user={user} />
+      <CreateProjForm user={user} courseId={courseId} />
     </div>
   );
 };
