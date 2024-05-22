@@ -1,10 +1,8 @@
 "use client";
 
-import { Logo } from "@/components/Logo";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -22,6 +20,7 @@ import { EditCourse } from "./EditCourse";
 import { DeleteCourse } from "./DeleteCourse";
 import { useState } from "react";
 import { PopoverClose } from "@radix-ui/react-popover";
+import { CourseLogo } from "./CourseLogo";
 
 type CourseTypes = {
   course: any;
@@ -36,10 +35,10 @@ export const Course = ({ course }: CourseTypes) => {
 
   return (
     <Card className="flex flex-col h-full overflow-hidden">
-      <CardHeader className="">
+      <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <Link href={`/courses/${course._id}`}>
-            <Boxes />
+            <CourseLogo status={course.issueStatus} />
           </Link>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger>
