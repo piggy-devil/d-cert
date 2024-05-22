@@ -39,6 +39,8 @@ export const updateCourse = async (
   values: z.infer<typeof CourseDetailSchema>,
   id: string
 ) => {
+  console.log(values);
+
   const validatedFields = CourseDetailSchema.safeParse(values);
   const session = await getSession();
   const user = session?.user;
@@ -48,6 +50,7 @@ export const updateCourse = async (
   }
 
   if (!validatedFields.success) {
+    console.log("Validation Errors:", validatedFields.error.format());
     return { error: "Invalid fields!" };
   }
 

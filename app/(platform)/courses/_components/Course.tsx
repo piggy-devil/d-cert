@@ -13,7 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Boxes, EllipsisVertical, X } from "lucide-react";
+import { EllipsisVertical, X } from "lucide-react";
 
 import Link from "next/link";
 import { EditCourse } from "./EditCourse";

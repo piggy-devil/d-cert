@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useCourse } from "@/hooks/use-course";
 import { getUsers } from "@/actions/course";
 import { BadgeNumber } from "@/components/util/Badge";
-import { CoursesLayout } from "../../_components/CoursesLayout";
+import { GraduatesLayout } from "./_components/GraduatesLayout";
 
 type GraduatesPageProps = {
   params: { courseId: string };
@@ -26,7 +26,7 @@ const GraduatesPage = async ({ params }: GraduatesPageProps) => {
   const userCount = users.length;
 
   return (
-    <CoursesLayout params={params}>
+    <GraduatesLayout params={params} course={course}>
       <div className="mb-8 flex items-center justify-between">
         <div>
           <Breadcrumb>
@@ -61,7 +61,7 @@ const GraduatesPage = async ({ params }: GraduatesPageProps) => {
           <AddUser courseId={courseId} courseName={course.course} />
         </div>
       </div>
-    </CoursesLayout>
+    </GraduatesLayout>
   );
 };
 

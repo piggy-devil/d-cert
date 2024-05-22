@@ -83,6 +83,7 @@ export const CourseDetailSchema = object({
   signature: string().min(1, {
     message: "signature is required",
   }),
+  issueStatus: string().optional(),
 });
 
 export type AddUserSchemaTypes = {
@@ -119,6 +120,7 @@ export type CourseDetailTypes = {
   dateOfStudyEnd: string;
   dateOfExpireCert?: string;
   signature: string;
+  issueStatus?: string;
 };
 
 export const SettingsSchema = object({
