@@ -38,6 +38,7 @@ type AddUserProps = {
   userId?: string;
   onClose?: () => void;
   values?: AddUserSchemaTypes;
+  issueStatus: "P" | "R" | "E" | "I";
 };
 
 export const AddUser = ({
@@ -47,6 +48,7 @@ export const AddUser = ({
   userId,
   onClose,
   values,
+  issueStatus,
 }: AddUserProps) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -119,6 +121,7 @@ export const AddUser = ({
     <AuthWrapper
       title={isEdit ? "แก้ไขรายชื่อ" : "ผู้จบหลักสูตร"}
       description={isEdit ? "" : `${courseName}`}
+      status={issueStatus}
     >
       <Form {...form}>
         <form
@@ -131,7 +134,11 @@ export const AddUser = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>คำนำหน้าชื่อ</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  disabled={issueStatus === "R"}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="โปรดระบุ - คำนำหน้าชื่อ" />
@@ -160,7 +167,7 @@ export const AddUser = ({
                 <FormControl>
                   <Input
                     {...field}
-                    disabled={isPending}
+                    disabled={isPending || issueStatus === "R"}
                     placeholder="สมชาย"
                     type="text"
                   />
@@ -179,7 +186,7 @@ export const AddUser = ({
                 <FormControl>
                   <Input
                     {...field}
-                    disabled={isPending}
+                    disabled={isPending || issueStatus === "R"}
                     placeholder="เข็มกลัด"
                     type="text"
                   />
@@ -198,7 +205,7 @@ export const AddUser = ({
                 <FormControl>
                   <Input
                     {...field}
-                    disabled={isPending}
+                    disabled={isPending || issueStatus === "R"}
                     placeholder="exsample@mwa.co.th"
                     type="email"
                   />
@@ -213,7 +220,12 @@ export const AddUser = ({
 
           <Button
             type="submit"
-            disabled={isPending || !isFormValid || (isEdit && !isFormChanged)}
+            disabled={
+              isPending ||
+              !isFormValid ||
+              (isEdit && !isFormChanged) ||
+              issueStatus === "R"
+            }
             className="w-full"
           >
             {isPending ? (

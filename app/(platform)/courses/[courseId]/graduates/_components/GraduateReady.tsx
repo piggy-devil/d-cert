@@ -34,7 +34,9 @@ export const GraduateReady = ({
           issueStatus: course.issueStatus === "P" ? "R" : "P",
           dateOfStudyStart: new Date(course.dateOfStudyStart),
           dateOfStudyEnd: new Date(course.dateOfStudyEnd),
-          dateOfExpireCert: new Date(course.dateOfExpireCert || ""),
+          dateOfExpireCert: course.dateOfExpireCert
+            ? new Date(course.dateOfExpireCert)
+            : undefined,
         };
 
         const res = await updateCourse(updatedCourse, courseId as string);

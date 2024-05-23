@@ -1,3 +1,5 @@
+"use client";
+
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { AddUser } from "./AddUser";
 import { AddUserSchemaTypes } from "@/schemas";
@@ -17,6 +19,23 @@ export const EditModal = ({
   userId,
   values,
 }: EditModalTypes) => {
+  // const [course, setCourse] = useState<CourseDetailTypes | null>(null);
+
+  // useEffect(() => {
+  //   const getCourseDetails = async () => {
+  //     if (courseId) {
+  //       const courseData = await getCourse(courseId);
+  //       setCourse(courseData);
+  //     }
+  //   };
+
+  //   getCourseDetails();
+  // }, [courseId]);
+
+  // if (!course) {
+  //   return <Loader2 className="animate-spin duration-500 text-slate-400" />;
+  // }
+
   return (
     <Dialog open={edit} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
@@ -27,6 +46,8 @@ export const EditModal = ({
             userId={userId}
             onClose={onClose}
             values={values}
+            // issueStatus={course.issueStatus}
+            issueStatus="P"
           />
         </div>
       </DialogContent>

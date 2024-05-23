@@ -50,16 +50,22 @@ const GraduatesPage = async ({ params }: GraduatesPageProps) => {
           </Breadcrumb>
         </div>
         <div>
-          <BadgeNumber number={userCount} />
+          <BadgeNumber number={userCount} courseStatus={course.issueStatus} />
         </div>
       </div>
       <div className="flex flex-row space-x-4">
         <div className="flex-1 overflow-y-auto max-h-screen">
-          <UserList courseId={courseId} courseName={course.course} />
+          <UserList courseId={courseId} courseStatus={course.issueStatus} />
         </div>
-        <div className="w-1/3">
-          <AddUser courseId={courseId} courseName={course.course} />
-        </div>
+        {(course.issueStatus === "P" || course.issueStatus === "E") && (
+          <div className="w-1/3">
+            <AddUser
+              courseId={courseId}
+              courseName={course.course}
+              issueStatus={course.issueStatus}
+            />
+          </div>
+        )}
       </div>
     </GraduatesLayout>
   );
