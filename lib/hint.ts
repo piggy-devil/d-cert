@@ -57,3 +57,18 @@ export const getBtnReadyBlock = (status: string) => {
       return "w-60 py-6 mt-2 text-white bg-gray-500 hover:bg-white hover:text-gray-500 hover:border-gray-500";
   }
 };
+
+export const getColorHeaderCourse = (status: string) => {
+  switch (status) {
+    case "P":
+      return "bg-red-500";
+    case "R":
+      return "bg-yellow-500";
+    case "E":
+      return "bg-orange-500";
+    case "I":
+      return "bg-green-500";
+    default:
+      return "bg-gray-700";
+  }
+};

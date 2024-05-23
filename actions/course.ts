@@ -39,8 +39,6 @@ export const updateCourse = async (
   values: z.infer<typeof CourseDetailSchema>,
   id: string
 ) => {
-  console.log(values);
-
   const validatedFields = CourseDetailSchema.safeParse(values);
   const session = await getSession();
   const user = session?.user;
@@ -261,7 +259,7 @@ export const addUser = async (
     return { error: "Invalid fields!" };
   }
 
-  const { titleName, firstName, lastName } = validatedFields.data;
+  const data = validatedFields.data;
 
   try {
     const res = await fetch(
@@ -272,23 +270,13 @@ export const addUser = async (
           "Content-Type": "application/json",
           authorization: `Bearer ${user?.token}`,
         },
-        body: JSON.stringify([
-          {
-            titleName: titleName,
-            firstName: firstName,
-            lastName: lastName,
-          },
-        ]),
+        body: JSON.stringify([data]),
       }
     );
 
     if (!res.ok) {
       return { error: res.statusText };
     }
-
-    console.log("res: ", await res.json());
-
-    // const {} = await res.json();
 
     return { success: "User Graduates Created!." };
   } catch (error) {

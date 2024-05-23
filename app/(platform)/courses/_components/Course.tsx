@@ -21,9 +21,11 @@ import { DeleteCourse } from "./DeleteCourse";
 import { useState } from "react";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { CourseLogo } from "./CourseLogo";
+import { CourseDetailTypes } from "@/schemas";
+import { getColorHeaderCourse } from "@/lib/hint";
 
 type CourseTypes = {
-  course: any;
+  course: CourseDetailTypes;
 };
 
 export const Course = ({ course }: CourseTypes) => {
@@ -34,7 +36,12 @@ export const Course = ({ course }: CourseTypes) => {
   };
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden">
+    <Card className="flex flex-col h-full overflow-hidden relative">
+      <div
+        className={`h-5 w-full rounded-t-md ${getColorHeaderCourse(
+          course.issueStatus
+        )} absolute`}
+      />
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <Link href={`/courses/${course._id}`}>

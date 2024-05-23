@@ -44,6 +44,7 @@ type Props = {
   dateOfStudyEnd: string;
   dateOfExpireCert?: string;
   signature: string;
+  issueStatus: string;
 };
 
 export const CourseDetailForm = ({
@@ -54,6 +55,7 @@ export const CourseDetailForm = ({
   dateOfStudyEnd,
   dateOfExpireCert,
   signature,
+  issueStatus,
 }: Props) => {
   const router = useRouter();
   const [error, setError] = useState<string | undefined>("");
@@ -147,7 +149,11 @@ export const CourseDetailForm = ({
   }
 
   return (
-    <AuthWrapper title="รายละเอียดหลักสูตร" description="Blockchain Technology">
+    <AuthWrapper
+      title="รายละเอียดหลักสูตร"
+      description="Blockchain Technology"
+      status={issueStatus}
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField

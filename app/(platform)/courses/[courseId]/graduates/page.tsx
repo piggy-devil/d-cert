@@ -23,10 +23,10 @@ const GraduatesPage = async ({ params }: GraduatesPageProps) => {
 
   const course = await useCourse(params.courseId);
   const users = await getUsers(courseId);
-  const userCount = users.length;
+  const userCount = users.length as number;
 
   return (
-    <GraduatesLayout params={params} course={course}>
+    <GraduatesLayout params={params} course={course} count={userCount}>
       <div className="mb-8 flex items-center justify-between">
         <div>
           <Breadcrumb>

@@ -83,15 +83,10 @@ export const CourseDetailSchema = object({
   signature: string().min(1, {
     message: "signature is required",
   }),
-  issueStatus: string().optional(),
+  issueStatus: string().default("P"),
 });
 
-export type AddUserSchemaTypes = {
-  titleName: string;
-  firstName: string;
-  lastName: string;
-  recipientEmail: string;
-};
+export type CourseDetailSchemaTypes = z.infer<typeof CourseDetailSchema>;
 
 export const AddUserSchema = object({
   titleName: string().min(1, {
@@ -112,6 +107,8 @@ export const AddUserSchema = object({
     }),
 });
 
+export type AddUserSchemaTypes = z.infer<typeof AddUserSchema>;
+
 export type CourseDetailTypes = {
   _id: string;
   course: string;
@@ -120,7 +117,7 @@ export type CourseDetailTypes = {
   dateOfStudyEnd: string;
   dateOfExpireCert?: string;
   signature: string;
-  issueStatus?: string;
+  issueStatus: "P" | "R" | "E" | "I";
 };
 
 export const SettingsSchema = object({

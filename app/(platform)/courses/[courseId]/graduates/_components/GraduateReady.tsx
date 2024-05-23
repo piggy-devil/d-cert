@@ -6,19 +6,21 @@ import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { CourseDetailSchema } from "@/schemas";
-import { z } from "zod";
+import { CourseDetailSchemaTypes } from "@/schemas";
 import { Loader2 } from "lucide-react";
 import { getBtnReadyBlock } from "@/lib/hint";
 
-type CourseTypes = z.infer<typeof CourseDetailSchema>;
-
 type GraduateReadyProps = {
   courseId: string | undefined;
-  course: CourseTypes;
+  course: CourseDetailSchemaTypes;
+  count: number;
 };
 
-export const GraduateReady = ({ courseId, course }: GraduateReadyProps) => {
+export const GraduateReady = ({
+  courseId,
+  course,
+  count,
+}: GraduateReadyProps) => {
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -70,7 +72,7 @@ export const GraduateReady = ({ courseId, course }: GraduateReadyProps) => {
         variant="outline"
         className={getBtnReadyBlock(course.issueStatus || "P")}
         onClick={() => setOpen(true)}
-        disabled={isPending}
+        disabled={isPending || count > 0 ? false : true}
       >
         {isPending ? (
           <Loader2 className="animate-spin duration-500 text-slate-400" />
