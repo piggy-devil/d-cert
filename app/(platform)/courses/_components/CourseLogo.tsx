@@ -16,7 +16,8 @@ export const CourseLogo = ({ status }: CourseLogoProps) => {
         sideOffset={18}
         className={getColorBg(status)}
       >
-        <Boxes className={getColorClass(status)} />
+        {/* <Boxes className={getColorClass(status)} /> */}
+        <Boxes />
       </Hint>
     </div>
   );

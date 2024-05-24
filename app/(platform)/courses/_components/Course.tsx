@@ -22,7 +22,7 @@ import { useState } from "react";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { CourseLogo } from "./CourseLogo";
 import { CourseDetailTypes } from "@/schemas";
-import { getColorHeaderCourse } from "@/lib/hint";
+import { getColorClass, getColorHeaderCourse } from "@/lib/hint";
 
 type CourseTypes = {
   course: CourseDetailTypes;
@@ -44,7 +44,10 @@ export const Course = ({ course }: CourseTypes) => {
       />
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <Link href={`/courses/${course._id}`}>
+          <Link
+            href={`/courses/${course._id}`}
+            className={getColorClass(course.issueStatus)}
+          >
             <CourseLogo status={course.issueStatus} />
           </Link>
           <Popover open={open} onOpenChange={setOpen}>
