@@ -8,12 +8,13 @@ import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { CourseDetailSchemaTypes } from "@/schemas";
 import { Loader2 } from "lucide-react";
-import { getBtnReadyBlock } from "@/lib/hint";
+import { getColorHeaderCourse, getHintLabel } from "@/lib/hint";
+import { cn } from "@/lib/utils";
 
 type GraduateReadyProps = {
   courseId: string | undefined;
   course: CourseDetailSchemaTypes;
-  count: number;
+  count?: number;
 };
 
 export const GraduateReady = ({
@@ -42,9 +43,27 @@ export const GraduateReady = ({
         const res = await updateCourse(updatedCourse, courseId as string);
 
         if (res.success) {
+          let toastMessage = "";
+
+          switch (course.issueStatus) {
+            case "P":
+              toastMessage = "All Information Ready To Blockchain";
+              break;
+            case "R":
+              toastMessage = "All Information Back To Prepare Information";
+              break;
+            case "I":
+              toastMessage = "Information Incomplete on Blockchain";
+              break;
+            default:
+              toastMessage = "All Information Success";
+              break;
+          }
+
           toast({
-            description: "All Information Ready To Blockchain",
+            description: toastMessage,
           });
+
           router.refresh();
         } else if (res.error) {
           toast({
@@ -60,7 +79,6 @@ export const GraduateReady = ({
       }
     });
   };
-
   return (
     <div>
       <ReadyModal
@@ -68,20 +86,27 @@ export const GraduateReady = ({
         onClose={() => setOpen(false)}
         onConfirm={onStatusChange}
         loading={isPending}
-        status={course.issueStatus || "P"}
+        status={course.issueStatus}
       />
       <Button
         variant="outline"
-        className={getBtnReadyBlock(course.issueStatus || "P")}
-        onClick={() => setOpen(true)}
-        disabled={isPending || count > 0 ? false : true}
+        className={cn(
+          "w-60 py-6 mt-2 text-white",
+          `${getColorHeaderCourse(course.issueStatus)}`,
+          course.issueStatus === "I" && "cursor-not-allowed"
+        )}
+        onClick={() => {
+          count
+            ? course.issueStatus !== "I" && count > 0 && setOpen(true)
+            : course.issueStatus !== "I" && setOpen(true);
+        }}
+        disabled={isPending || count || 0 > 0 ? false : true}
+        // disabled={isPending}
       >
         {isPending ? (
           <Loader2 className="animate-spin duration-500 text-slate-400" />
-        ) : course && course.issueStatus === "P" ? (
-          "Prepare information"
         ) : (
-          "Ready For Blockchain"
+          course && getHintLabel(course.issueStatus)
         )}
       </Button>
     </div>

@@ -12,7 +12,8 @@ export const BadgeNumber = ({ number, courseStatus }: BadgeTypes) => {
     <Badge
       className={cn(
         "flex items-center justify-center h-8 w-8 rounded-full text-white text-xl",
-        `${getColorHeaderCourse(courseStatus)}`
+        `${getColorHeaderCourse(courseStatus)}`,
+        `hover:${getColorHeaderCourse(courseStatus)}`
       )}
     >
       {number ? number : 0}

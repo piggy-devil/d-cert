@@ -12,6 +12,7 @@ type DeleteCourseProps = {
   id: string;
   className?: string;
   afterDelete?: string;
+  disabled?: boolean;
 };
 
 export const DeleteCourse = ({
@@ -19,6 +20,7 @@ export const DeleteCourse = ({
   id,
   className,
   afterDelete,
+  disabled,
 }: DeleteCourseProps) => {
   const [_, setSuccess] = useState<string | undefined>("");
   const [open, setOpen] = useState(false);
@@ -60,9 +62,13 @@ export const DeleteCourse = ({
       />
 
       <Button
-        variant="ghost"
-        className={cn("text-destructive", className)}
+        variant="destructive"
+        className={cn(
+          "text-white hover:text-destructive hover:bg-white",
+          className
+        )}
         onClick={() => setOpen(true)}
+        disabled={disabled}
       >
         {isPending ? (
           <Loader2 className="animate-spin duration-500 text-slate-400" />

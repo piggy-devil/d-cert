@@ -46,11 +46,14 @@ const GraduatesPage = async ({ params }: GraduatesPageProps) => {
               <BreadcrumbItem>
                 <BreadcrumbPage>graduates</BreadcrumbPage>
               </BreadcrumbItem>
+              <div>
+                <BadgeNumber
+                  number={userCount}
+                  courseStatus={course.issueStatus}
+                />
+              </div>
             </BreadcrumbList>
           </Breadcrumb>
-        </div>
-        <div>
-          <BadgeNumber number={userCount} courseStatus={course.issueStatus} />
         </div>
       </div>
       <div className="flex flex-row space-x-4">

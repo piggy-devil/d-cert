@@ -7,7 +7,7 @@ export const getHintLabel = (status: string) => {
     case "E":
       return "Edit information";
     case "I":
-      return "Successfully to blockchain";
+      return "Successfully on blockchain";
     default:
       return "Unknown Status";
   }
@@ -46,15 +46,30 @@ export const getColorBg = (status: string) => {
 export const getBtnReadyBlock = (status: string) => {
   switch (status) {
     case "P":
-      return "w-60 py-6 mt-2 text-white bg-red-500 hover:bg-white hover:text-red-500 hover:border-red-500";
+      return "bg-red-500 hover:bg-white hover:text-red-500";
     case "R":
-      return "w-60 py-6 mt-2 text-white bg-yellow-500 hover:bg-white hover:text-yellow-500 hover:border-yellow-500";
+      return "bg-yellow-500 hover:bg-white hover:text-yellow-500";
     case "E":
-      return "w-60 py-6 mt-2 text-white bg-orange-500 hover:bg-white hover:text-orange-500 hover:border-orange-500";
+      return "bg-orange-500 hover:bg-white hover:text-orange-500";
     case "I":
-      return "w-60 py-6 mt-2 text-white bg-green-500 hover:bg-white hover:text-green-500 hover:border-green-500";
+      return "bg-green-500 hover:bg-white hover:text-green-500";
     default:
-      return "w-60 py-6 mt-2 text-white bg-gray-500 hover:bg-white hover:text-gray-500 hover:border-gray-500";
+      return "bg-gray-500 hover:bg-white hover:text-gray-500";
+  }
+};
+
+export const getBtnReadyBlockHover = (status: string) => {
+  switch (status) {
+    case "P":
+      return " hover:bg-white hover:text-red-500";
+    case "R":
+      return " hover:bg-white hover:text-yellow-500";
+    case "E":
+      return " hover:bg-white hover:text-orange-500";
+    case "I":
+      return " hover:bg-white hover:text-green-500";
+    default:
+      return " hover:bg-white hover:text-gray-500";
   }
 };
 
@@ -70,5 +85,20 @@ export const getColorHeaderCourse = (status: string) => {
       return "bg-green-500";
     default:
       return "bg-gray-700";
+  }
+};
+
+export const getTextColor = (status: string) => {
+  switch (status) {
+    case "P":
+      return "text-red-500";
+    case "R":
+      return "text-yellow-500";
+    case "E":
+      return "text-orange-500";
+    case "I":
+      return "text-green-500";
+    default:
+      return "text-gray-700";
   }
 };

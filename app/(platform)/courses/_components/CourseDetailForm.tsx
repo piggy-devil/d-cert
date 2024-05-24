@@ -50,7 +50,6 @@ type Props = {
 export const CourseDetailForm = ({
   courseId,
   course,
-  instituteId,
   dateOfStudyStart,
   dateOfStudyEnd,
   dateOfExpireCert,
@@ -165,7 +164,9 @@ export const CourseDetailForm = ({
                 <FormControl>
                   <Input
                     {...field}
-                    disabled={isPending}
+                    disabled={
+                      isPending || issueStatus === "R" || issueStatus === "I"
+                    }
                     placeholder="course name"
                     type="text"
                   />
@@ -182,7 +183,12 @@ export const CourseDetailForm = ({
               <FormItem className="flex flex-col">
                 <FormLabel>เริ่มต้น</FormLabel>
                 <Popover>
-                  <PopoverTrigger asChild>
+                  <PopoverTrigger
+                    asChild
+                    disabled={
+                      isPending || issueStatus === "R" || issueStatus === "I"
+                    }
+                  >
                     <FormControl>
                       <Button
                         variant={"outline"}
@@ -226,7 +232,12 @@ export const CourseDetailForm = ({
               <FormItem className="flex flex-col">
                 <FormLabel>สิ้นสุด</FormLabel>
                 <Popover>
-                  <PopoverTrigger asChild>
+                  <PopoverTrigger
+                    asChild
+                    disabled={
+                      isPending || issueStatus === "R" || issueStatus === "I"
+                    }
+                  >
                     <FormControl>
                       <Button
                         variant={"outline"}
@@ -272,7 +283,12 @@ export const CourseDetailForm = ({
               <FormItem className="flex flex-col">
                 <FormLabel>ใบเซอร์หมดอายุ (ถ้ามี)</FormLabel>
                 <Popover>
-                  <PopoverTrigger asChild>
+                  <PopoverTrigger
+                    asChild
+                    disabled={
+                      isPending || issueStatus === "R" || issueStatus === "I"
+                    }
+                  >
                     <FormControl>
                       <Button
                         variant={"outline"}
@@ -330,12 +346,14 @@ export const CourseDetailForm = ({
           <FormField
             control={form.control}
             name="signature"
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel>ลายเซ็นต์</FormLabel>
                 <FormControl>
                   <Input
-                    disabled={isPending}
+                    disabled={
+                      isPending || issueStatus === "R" || issueStatus === "I"
+                    }
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
@@ -362,9 +380,10 @@ export const CourseDetailForm = ({
           </Button>
         </form>
         <DeleteCourse
-          className="w-full hover:bg-destructive hover:text-white mt-2"
+          className="w-full mt-2"
           id={courseId}
           afterDelete="/courses"
+          disabled={isPending || issueStatus === "R" || issueStatus === "I"}
         >
           Delete
         </DeleteCourse>

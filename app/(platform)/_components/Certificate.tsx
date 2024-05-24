@@ -39,15 +39,20 @@ export const Certificate = ({
             <Image src="/mwa-logo.png" alt="certlogo" width={96} height={96} />
           </div>
 
-          <h1 className="text-5xl font-bold my-4">CERTIFICATE OF COMPLETION</h1>
-          <span className="text-xl">This is to certify that</span>
+          {/* <h1 className="text-5xl font-bold my-4">CERTIFICATE OF COMPLETION</h1>  */}
+          {/* <span className="text-xl">This is to certify that</span> */}
+          <h1 className="text-5xl font-bold my-4">โครงการอบรมเชิงปฏิบัติการ</h1>
+          <span className="text-xl">ประกาศนียบัตรนี้ให้ไว้เพื่อแสดงว่า</span>
           <p className="text-blue-600 text-5xl font-bold italic my-4 whitespace-nowrap ">
             {name}
           </p>
           <span className="text-lg">
-            has successfully completed the course on
+            {/* has successfully completed the course on */}
+            ได้เข้าร่วมอบรมในหลักสูตร
           </span>
-          <h2 className="text-3xl font-semibold my-4">{course}</h2>
+          <h2 className="text-4xl font-semibold text-green-500 my-4">
+            {course}
+          </h2>
           <span className="text-xl">
             {`${formatThaiDate(dateOfStudyStart)} ${dashValue(
               dateOfStudyEnd
