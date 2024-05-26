@@ -150,7 +150,7 @@ export const CourseDetailForm = ({
   return (
     <AuthWrapper
       title="รายละเอียดหลักสูตร"
-      description="Blockchain Technology"
+      description={course ? course : "Blockchain Technology"}
       status={issueStatus}
     >
       <Form {...form}>

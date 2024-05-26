@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getCourse, getUsers } from "@/actions/course";
 import { CourseDetailForm } from "../_components/CourseDetailForm";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, PlusCircle } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,6 +14,8 @@ import { Button } from "@/components/ui/button";
 import { CourseDetailTypes } from "@/schemas";
 import { BadgeNumber } from "@/components/util/Badge";
 import { CoursesIdLayout } from "./_components/CoursesIdLayout";
+import BadgeUser from "./_components/BadgeUser";
+import { Hint } from "@/components/util/Hint";
 
 type CourseIdPageProps = {
   params: { courseId: string };
@@ -76,22 +78,28 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
                     </BreadcrumbItem>
                   </>
                 )}
-                <div>
+                {/* <div>
                   <BadgeNumber
                     number={userCount}
                     courseStatus={course.issueStatus}
                   />
-                </div>
+                </div> */}
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-          <div>
+          <div className="flex gap-x-4">
+            <BadgeUser users={users} status={course.issueStatus} />
             {isComplete && course.issueStatus === "P" && (
-              <Link href={`/courses/${params.courseId}/graduates`}>
-                <span className="text-primary hover:bg-primary hover:text-white hover:rounded-md px-2 py-2">
-                  เพิ่มผู้จบหลักสูตร
-                </span>
-              </Link>
+              <Hint
+                label="เพิ่มผู้จบหลักสูตร"
+                className="bg-primary border-white mt-2"
+                align="start"
+                side="bottom"
+              >
+                <Link href={`/courses/${params.courseId}/graduates`}>
+                  <PlusCircle className="text-primary hover:text-white hover:fill-primary" />
+                </Link>
+              </Hint>
             )}
           </div>
         </div>

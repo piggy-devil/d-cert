@@ -34,13 +34,23 @@ export type AddUserGraduates = {
 };
 
 export const columns: ColumnDef<AddUserGraduates>[] = [
+  // {
+  //   accessorKey: "titleName",
+  //   header: "คำนำหน้า",
+  // },
+  // {
+  //   accessorKey: "firstName",
+  //   header: "ชื่อตัว",
+  // },
   {
-    accessorKey: "titleName",
-    header: "คำนำหน้า",
-  },
-  {
-    accessorKey: "firstName",
+    id: "firstName",
     header: "ชื่อตัว",
+    cell: ({ row }) => {
+      const user = row.original;
+      let name = `${user.titleName}${user.firstName}`;
+
+      return name;
+    },
   },
   {
     accessorKey: "lastName",

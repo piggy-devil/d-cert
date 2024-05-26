@@ -8,13 +8,14 @@ import { useState } from "react";
 type EditCourseTypes = {
   course: any;
   onClose: () => void;
+  disabled: boolean;
 };
 
-export const EditCourse = ({ course, onClose }: EditCourseTypes) => {
+export const EditCourse = ({ course, onClose, disabled }: EditCourseTypes) => {
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild disabled={disabled}>
         <Button
           variant="ghost"
           className="w-full"

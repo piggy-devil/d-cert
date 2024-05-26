@@ -3,8 +3,8 @@
 import * as z from "zod";
 
 import { AddUserSchema, CourseDetailSchema, CourseSchema } from "@/schemas";
-import getSession from "@/lib/getSession";
 import { redirect } from "next/navigation";
+import getSession from "@/lib/getSession";
 
 export const deleteCourse = async (id: string) => {
   const session = await getSession();
@@ -44,11 +44,11 @@ export const updateCourse = async (
   const user = session?.user;
 
   if (!session || !user) {
-    redirect("/api/auth/signin?callbackUrl=/courses");
+    redirect(`/api/auth/signin?callbackUrl=/courses/${id}`);
   }
 
   if (!validatedFields.success) {
-    console.log("Validation Errors:", validatedFields.error.format());
+    // console.log("Validation Errors:", validatedFields.error.format());
     return { error: "Invalid fields!" };
   }
 
@@ -87,7 +87,8 @@ export const createCourse = async (
   const user = session?.user;
 
   if (!session || !user) {
-    redirect("/api/auth/signin?callbackUrl=/courses");
+    let callbackUrl = id ? `/courses/${id}` : `/courses`;
+    redirect(`/api/auth/signin?callbackUrl=${callbackUrl}`);
   }
 
   if (!validatedFields.success) {
@@ -212,7 +213,7 @@ export const getCourse = async (id: string) => {
   const user = session?.user;
 
   if (!session || !user) {
-    redirect("/api/auth/signin?callbackUrl=/courses");
+    redirect(`/api/auth/signin?callbackUrl=/courses/${id}`);
   }
 
   try {
@@ -252,7 +253,7 @@ export const addUser = async (
   const user = session?.user;
 
   if (!session || !user) {
-    redirect("/api/auth/signin?callbackUrl=/courses");
+    redirect(`/api/auth/signin?callbackUrl=/courses/${id}/graduates`);
   }
 
   if (!validatedFields.success) {
@@ -290,7 +291,9 @@ export const getUser = async (courseId: string, userId: string) => {
   const user = session?.user;
 
   if (!session || !user) {
-    redirect("/api/auth/signin?callbackUrl=/courses");
+    redirect(
+      `/api/auth/signin?callbackUrl=/courses/${courseId}/graduates/${userId}`
+    );
   }
 
   try {
@@ -322,7 +325,7 @@ export const getUsers = async (id: string) => {
   const user = session?.user;
 
   if (!session || !user) {
-    redirect("/api/auth/signin?callbackUrl=/courses");
+    redirect(`/api/auth/signin?callbackUrl=/courses/${id}/graduates`);
   }
 
   try {
@@ -359,7 +362,9 @@ export const updateUser = async (
   const user = session?.user;
 
   if (!session || !user) {
-    redirect("/api/auth/signin?callbackUrl=/courses");
+    redirect(
+      `/api/auth/signin?callbackUrl=/courses/${courseId}/graduates/${userId}`
+    );
   }
 
   if (!validatedFields.success) {
@@ -397,7 +402,7 @@ export const deleteUser = async (courseId: string, userId: string) => {
   const user = session?.user;
 
   if (!session || !user) {
-    redirect(`/api/auth/signin?callbackUrl=/courses/${courseId}`);
+    redirect(`/api/auth/signin?callbackUrl=/courses/${courseId}/graduates`);
   }
 
   try {

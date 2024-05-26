@@ -60,8 +60,17 @@ export const Course = ({ course }: CourseTypes) => {
                 <X size={18} />
               </PopoverClose>
               <div className="flex flex-col space-y-2 w-full mt-8">
-                <EditCourse course={course} onClose={onClose} />
-                <DeleteCourse id={course._id}>Delete</DeleteCourse>
+                <EditCourse
+                  course={course}
+                  onClose={onClose}
+                  disabled={course.issueStatus === "P" ? false : true}
+                />
+                <DeleteCourse
+                  id={course._id}
+                  disabled={course.issueStatus === "I" ? true : false}
+                >
+                  Delete
+                </DeleteCourse>
               </div>
             </PopoverContent>
           </Popover>
