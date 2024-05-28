@@ -140,7 +140,7 @@ export const columnsViews: ColumnDef<AddUserGraduates>[] = [
             >
               <Trash2
                 onClick={() => setOpen(true)}
-                className="text-orange-500 hover:text-white hover:fill-orange-500"
+                className="text-orange-500 hover:text-white hover:fill-orange-500 cursor-pointer"
                 size={20}
               />
             </Hint>

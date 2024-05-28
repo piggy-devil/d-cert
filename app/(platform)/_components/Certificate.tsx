@@ -9,6 +9,7 @@ type CertificateProps = {
   dateOfStudyEnd?: string;
   signature?: string;
   signatureDetails?: string;
+  stampImageUrl?: string;
 };
 
 export const Certificate = ({
@@ -18,6 +19,7 @@ export const Certificate = ({
   dateOfStudyEnd,
   signature,
   signatureDetails,
+  stampImageUrl,
 }: CertificateProps) => {
   const formatThaiDate = (date: string | undefined) => {
     return date && moment(date).isValid()
@@ -74,6 +76,15 @@ export const Certificate = ({
             <span className="text-sm">{signatureDetails}</span>
           </div>
         </div>
+        {stampImageUrl && (
+          <Image
+            src={stampImageUrl}
+            alt="Stamp"
+            className="absolute bottom-10 right-10 w-36 h-36 opacity-85"
+            width={144}
+            height={144}
+          />
+        )}
       </div>
     </div>
   );
