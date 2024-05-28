@@ -64,17 +64,17 @@ const config = {
       const { pathname } = request.nextUrl;
 
       // เวลาที่หมดอายุ
-      const targetTime = new Date(auth?.expires as string).getTime();
+      // const targetTime = new Date(auth?.expires as string).getTime();
 
       // เวลาปัจจุบัน
-      const currentTime = new Date().getTime();
+      // const currentTime = new Date().getTime();
 
       // ตรวจสอบว่าเวลาที่หมดอายุมากกว่าหรือน้อยกว่าเวลาปัจจุบัน
-      if (targetTime > currentTime) {
-        console.log("เวลาที่หมดอายุมากกว่าเวลาปัจจุบัน");
-      } else if (targetTime < currentTime) {
-        console.log("เวลาที่หมดอายุน้อยกว่าเวลาปัจจุบัน");
-      }
+      // if (targetTime > currentTime) {
+      //   console.log("เวลาที่หมดอายุมากกว่าเวลาปัจจุบัน");
+      // } else if (targetTime < currentTime) {
+      //   console.log("เวลาที่หมดอายุน้อยกว่าเวลาปัจจุบัน");
+      // }
 
       if (pathname === "/middle") return !!auth;
       if (pathname === "/settings") return !!auth;
@@ -97,7 +97,7 @@ const config = {
           token.email as string
         );
 
-        console.log("existingUser: ", !!existingUser);
+        // console.log("existingUser: ", !!existingUser);
 
         if (existingUser.message == "Forbidden") {
           redirect("/api/auth/signin?callbackUrl=/");
