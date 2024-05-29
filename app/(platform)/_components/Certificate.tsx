@@ -7,8 +7,8 @@ type CertificateProps = {
   course?: string;
   dateOfStudyStart?: string;
   dateOfStudyEnd?: string;
-  signature?: string;
-  signatureDetails?: string;
+  signature: string;
+  signName: string;
   stampImageUrl?: string;
 };
 
@@ -18,7 +18,7 @@ export const Certificate = ({
   dateOfStudyStart,
   dateOfStudyEnd,
   signature,
-  signatureDetails,
+  signName,
   stampImageUrl,
 }: CertificateProps) => {
   const formatThaiDate = (date: string | undefined) => {
@@ -73,7 +73,7 @@ export const Certificate = ({
               </div>
             )}
             <span className="block h-px w-48 bg-black mx-auto mb-2"></span>
-            <span className="text-sm">{signatureDetails}</span>
+            <span className="text-sm">{signName}</span>
           </div>
         </div>
         {stampImageUrl && (

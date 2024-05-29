@@ -27,16 +27,13 @@ const isCourseDataComplete = (course: CourseDetailTypes | null) => {
     course._id &&
     course.course &&
     course.dateOfStudyStart &&
-    course.dateOfStudyEnd
+    course.dateOfStudyEnd &&
+    course.signName
   );
 };
 
 const CourseIdPage = async ({ params }: CourseIdPageProps) => {
   const course = await getCourse(params.courseId);
-  const users = await getUsers(params.courseId);
-  const userCount = users.length as number;
-
-  const isComplete = isCourseDataComplete(course);
 
   if (!course) {
     console.error("Course data not found");
@@ -49,6 +46,10 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
       </div>
     );
   }
+
+  const users = await getUsers(params.courseId);
+  const userCount = users.length as number;
+  const isComplete = isCourseDataComplete(course);
 
   return (
     <>
@@ -115,6 +116,7 @@ const CourseIdPage = async ({ params }: CourseIdPageProps) => {
             dateOfStudyEnd={course.dateOfStudyEnd}
             dateOfExpireCert={course.dateOfExpireCert}
             signature={course.signature}
+            signName={course.signName}
             issueStatus={course.issueStatus}
           />
           {/* <Link href={`/courses/${params.courseId}/graduates`}>

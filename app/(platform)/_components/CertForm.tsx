@@ -48,7 +48,7 @@ export const CertForm = ({ courseId, userId }: CertFormProps) => {
             dateOfStudyStart={`${courseData.dateOfStudyStart}`}
             dateOfStudyEnd={`${courseData.dateOfStudyEnd}`}
             signature={courseData.signature}
-            signatureDetails="John Smith, Instructor"
+            signName={courseData.signName}
           />
         ) : (
           <div className="flex items-center justify-center h-96">

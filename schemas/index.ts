@@ -60,14 +60,6 @@ export const CourseSchema = object({
   }),
 });
 
-const base64Validator = (value: string) => {
-  try {
-    return Buffer.from(value, "base64").toString("base64") === value;
-  } catch {
-    return false;
-  }
-};
-
 export const CourseDetailSchema = object({
   course: string().min(1, {
     message: "Course name is required",
@@ -82,6 +74,9 @@ export const CourseDetailSchema = object({
   dateOfExpireCert: date().optional(),
   signature: string().min(1, {
     message: "signature is required",
+  }),
+  signName: string().min(1, {
+    message: "signName is required",
   }),
   issueStatus: string().default("P"),
 });
@@ -117,6 +112,7 @@ export type CourseDetailTypes = {
   dateOfStudyEnd: string;
   dateOfExpireCert?: string;
   signature: string;
+  signName: string;
   issueStatus: "P" | "R" | "E" | "I";
 };
 

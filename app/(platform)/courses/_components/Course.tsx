@@ -55,8 +55,8 @@ export const Course = ({ course }: CourseTypes) => {
               <EllipsisVertical className="text-slate-500 hover:text-slate-900" />
             </PopoverTrigger>
             {/* <PopoverContent className="-translate-x-10 w-48"> */}
-            <PopoverContent className="w-48">
-              <PopoverClose className="float-end">
+            <PopoverContent className="w-36" align="start">
+              <PopoverClose className="float-end hover:text-destructive">
                 <X size={18} />
               </PopoverClose>
               <div className="flex flex-col space-y-2 w-full mt-8">
@@ -69,7 +69,7 @@ export const Course = ({ course }: CourseTypes) => {
                   id={course._id}
                   disabled={course.issueStatus === "I" ? true : false}
                 >
-                  Delete
+                  ลบ
                 </DeleteCourse>
               </div>
             </PopoverContent>

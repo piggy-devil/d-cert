@@ -18,10 +18,10 @@ export const EditCourse = ({ course, onClose, disabled }: EditCourseTypes) => {
       <DialogTrigger asChild disabled={disabled}>
         <Button
           variant="ghost"
-          className="w-full"
+          className="w-full text-slate-500 hover:text-primary"
           onClick={() => setOpen(true)}
         >
-          Edit
+          แก้ไข
         </Button>
       </DialogTrigger>
       <DialogContent className="p-0 bg-transparent border-none max-w-[480px]">

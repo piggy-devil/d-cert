@@ -20,16 +20,16 @@ export const NewButton = ({ children }: NewButtonProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <div className="w-full h-full mb-2">
-          <Hint label="Create Cert" side="right" align="start" sideOffset={18}>
+        <div className="w-full h-full">
+          <Hint label="Create Cert" side="top" align="end" sideOffset={18}>
             {children ? (
-              <div className="flex items-center cursor-pointer hover:bg-primary hover:text-white px-2 py-2 rounded-md">
+              <div className="flex items-center cursor-pointer hover:bg-primary hover:text-white px-2 py-2 mb-4 rounded-md">
                 <CirclePlus size={20} className="mr-4" />
                 {children}
               </div>
             ) : (
-              <button className="bg-slate-200 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100 transition">
-                <Plus className="text-white" />
+              <button className="bg-slate-200 h-full w-full rounded-md flex items-center justify-center opacity-60 hover:opacity-100transition">
+                <Plus className="text-white hover:text-primary w-12 h-12" />
               </button>
             )}
           </Hint>

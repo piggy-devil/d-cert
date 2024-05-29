@@ -44,6 +44,7 @@ type Props = {
   dateOfStudyEnd: string;
   dateOfExpireCert?: string;
   signature: string;
+  signName: string;
   issueStatus: string;
 };
 
@@ -54,6 +55,7 @@ export const CourseDetailForm = ({
   dateOfStudyEnd,
   dateOfExpireCert,
   signature,
+  signName,
   issueStatus,
 }: Props) => {
   const router = useRouter();
@@ -93,6 +95,7 @@ export const CourseDetailForm = ({
         ? new Date(dateOfExpireCert)
         : undefined,
       signature: signature,
+      signName: signName,
     },
   });
 
@@ -364,6 +367,27 @@ export const CourseDetailForm = ({
             )}
           />
 
+          <FormField
+            control={form.control}
+            name="signName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>ชื่อผู้ลงนาม</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    disabled={
+                      isPending || issueStatus === "R" || issueStatus === "I"
+                    }
+                    placeholder="course name"
+                    type="text"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormError message={error} />
           <FormSuccess message={success} />
 
@@ -375,7 +399,7 @@ export const CourseDetailForm = ({
             {isPending ? (
               <Loader2 className="animate-spin duration-500 text-slate-400" />
             ) : (
-              "แก้ไขหลักสูตร"
+              "บันทึก"
             )}
           </Button>
         </form>
@@ -385,7 +409,7 @@ export const CourseDetailForm = ({
           afterDelete="/courses"
           disabled={isPending || issueStatus === "R" || issueStatus === "I"}
         >
-          Delete
+          ลบ
         </DeleteCourse>
       </Form>
     </AuthWrapper>
